@@ -47,6 +47,7 @@ Ye Pakistan me sab se sasti groceries dhundta, compare karta aur recommend karta
 ```bash
 git clone https://github.com/teamalpha/cheapestbuy-ai.git
 cd cheapestbuy-ai
+```
 
 ### 2. Python Environment Setup Karein
 
@@ -56,25 +57,27 @@ python -m venv .venv
 source .venv/bin/activate
 # Windows
 .venv\Scripts\activate
+```
 
 ### 3. Dependencies Install Karein
 
 ```bash
 pip install -r requirements.txt
+```
 
 ### 4. API Keys .env Mein Dalen
 
-```bash
 .env file banayein project ke root folder mein:
-
+```bash
 AIML_API_KEY=apna_aiml_api_key
 SERPER_API_KEY=apna_serperdev_api_key
+```
 
 ### 5. App Run Karein
 
 ```bash
 streamlit run app.py
-
+```
 
 
 ---
