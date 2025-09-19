@@ -1,5 +1,11 @@
 <p align="center">
-  <img src="tlogo.png" alt="Team Alpha Logo" width="120"/>
+  <img src="tlogo.png" alt="Team Alpha Logo" width="240"/>
+</p>
+
+<p align="center">
+  <a href="https://your-app-name.onrender.com" target="_blank">
+    <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge" alt="Live Demo on Render">
+  </a>
 </p>
 
 # 🥦 CheapestBuy.AI
