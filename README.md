@@ -2,12 +2,6 @@
   <img src="tlogo.png" alt="Team Alpha Logo" width="240"/>
 </p>
 
-<p align="center">
-  <a href="https://your-app-name.onrender.com" target="_blank">
-    <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge" alt="Live Demo on Render">
-  </a>
-</p>
-
 # 🥦 CheapestBuy.AI
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
@@ -47,6 +41,12 @@ It searches, compares, and recommends the most affordable groceries in Pakistan,
 | AIML API       | GPT-4o + Whisper for LLM/STT   |
 | Serper.dev     | Web search (Google results)    |
 | Custom Tools   | Grocery website scrapers       |
+
+<p align="center">
+  <a href="https://your-app-name.onrender.com" target="_blank">
+    <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge" alt="Live Demo on Render">
+  </a>
+</p>
 
 ---
 
