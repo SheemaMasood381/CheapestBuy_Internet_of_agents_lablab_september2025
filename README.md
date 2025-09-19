@@ -1,9 +1,10 @@
 
 
-CheapestBuy.AI: Your AI-Powered Grocery Assistant
+**CheapestBuy.AI: Your AI-Powered Grocery Assistant**
+
 CheapestBuy.AI is a smart grocery shopping assistant that helps users find the best and most affordable grocery deals in Pakistan. It uses a CrewAI framework to mimic a team of experts who work together to collect user input, search the web, compare products, analyze reviews, and provide clear recommendations.
 
-🚀 Features
+**🚀 Features**
 Intelligent Agent Crew: A team of specialized AI agents works together to fulfill your request.
 
 Input Collector: Gathers and clarifies your grocery needs.
@@ -22,7 +23,7 @@ Customizable Filters: Apply optional filters for minimum rating or preferred bra
 
 Structured Recommendations: The final output provides a clear, organized view of the top options, including price, rating, and a purchase link.
 
-⚙️ How It Works
+**⚙️ How It Works**
 The application is built on Streamlit for the user interface and CrewAI for the AI workflow. The process is sequential:
 
 User Input: The user provides a grocery query via text or voice.
@@ -37,7 +38,7 @@ Review Summary: The Grocery Review Analyzer processes product reviews to highlig
 
 Final Recommendation: The Grocery Shopping Recommendation Specialist compiles a final, comprehensive summary for the user.
 
-🛠️ Setup and Installation
+**🛠️ Setup and Installation**
 Prerequisites
 Python 3.8+
 
@@ -45,12 +46,12 @@ An API key from AIMLAPI for the LLM and embedding models.
 
 An API key from SerperDevTool for web searching.
 
-Installation Steps
+**Installation Steps**
 Clone the repository:
 
 Bash
 
-git clone https://github.com/your-username/your-repo.git
+git clone https://github.com/SheemaMasood381/CheapestBuy_Internet_of_agents_lablab_september2025/
 cd your-repo
 Create and activate a virtual environment:
 
@@ -80,5 +81,5 @@ Bash
 streamlit run app.py
 (Assuming your main script file is named app.py)
 
-🤝 Contribution
+**🤝 Contribution**
 This project was developed by The Team Alpha for a hackathon. We welcome contributions from the community. Feel free to open issues or submit pull requests.
