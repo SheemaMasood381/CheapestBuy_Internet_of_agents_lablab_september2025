@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="tlogo.png" alt="Team Alpha Logo" width="120"/>
+</p>
+
 # 🥦 CheapestBuy.AI
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
@@ -10,19 +14,19 @@
 
 ## Project Overview
 
-**CheapestBuy.AI** ek smart, multi-agent grocery shopping assistant hai jo Streamlit aur CrewAI par bana hai.  
-Ye Pakistan me sab se sasti groceries dhundta, compare karta aur recommend karta hai, text aur voice search dono support karta hai[web:29].
+**CheapestBuy.AI** is an intelligent, multi-agent grocery shopping assistant built with Streamlit and CrewAI.  
+It searches, compares, and recommends the most affordable groceries in Pakistan, supporting both text and voice-based searches.
 
 ---
 
 ## Features
 
-- 🔎 Sasti grocery products search (Carrefour, Metro, Imtiaz)
-- 📊 Product comparison: price, delivery, reviews
-- 🤖 Multi-agent pipeline (input, search, analysis, review, recommend)
-- 🔉 Voice search (AIML GPT-4o Whisper support)
-- 💬 User review/sentiment analysis (Daraz, Amazon, AliExpress)
-- 🥇 Top 3 detailed recommendations (image, link, pros, cons, delivery info)
+- 🔎 Affordable grocery product search (Carrefour, Metro, Imtiaz)
+- 📊 Product comparison: price, delivery options, reviews
+- 🤖 Multi-agent pipeline (input, search, analysis, review, recommendation)
+- 🔉 Voice search (AIML GPT-4o Whisper integration)
+- 💬 User review and sentiment analysis (Daraz, Amazon, AliExpress)
+- 🥇 Top 3 detailed recommendations (with images, links, pros, cons, delivery info)
 - 🏷️ Simple, beginner-friendly Streamlit UI with filters & history
 
 ---
@@ -31,25 +35,25 @@ Ye Pakistan me sab se sasti groceries dhundta, compare karta aur recommend karta
 
 | Component      | Details                        |
 |----------------|-------------------------------|
-| Python         | 3.10+ [web:29]                |
-| Streamlit      | UI, chat interface            |
-| CrewAI         | Multi-agent workflow          |
-| AIML API       | GPT-4o + Whisper for LLM/STT  |
-| Serper.dev     | Web search (Google results)   |
-| Custom Tools   | Grocery website scrapers      |
+| Python         | 3.10+                          |
+| Streamlit      | UI, chat interface             |
+| CrewAI         | Multi-agent workflow           |
+| AIML API       | GPT-4o + Whisper for LLM/STT   |
+| Serper.dev     | Web search (Google results)    |
+| Custom Tools   | Grocery website scrapers       |
 
 ---
 
 ## Quick Start
 
-### 1. Clone Ya Download Karein
+### 1. Clone or Download
 
 ```bash
 git clone https://github.com/teamalpha/cheapestbuy-ai.git
 cd cheapestbuy-ai
 ```
 
-### 2. Python Environment Setup Karein
+### 2. Set Up Python Environment
 
 ```bash
 python -m venv .venv
@@ -59,54 +63,53 @@ source .venv/bin/activate
 .venv\Scripts\activate
 ```
 
-### 3. Dependencies Install Karein
+### 3. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. API Keys .env Mein Dalen
+### 4. Add API Keys to .env
 
-.env file banayein project ke root folder mein:
+Create a `.env` file in the project root folder:
 ```bash
-AIML_API_KEY=apna_aiml_api_key
-SERPER_API_KEY=apna_serperdev_api_key
+AIML_API_KEY=your_aiml_api_key
+SERPER_API_KEY=your_serperdev_api_key
 ```
 
-### 5. App Run Karein
+### 5. Run the App
 
 ```bash
 streamlit run app.py
 ```
 
-
 ---
 
 ## Usage
 
-- Text ya voice input select karein
-- Grocery ka query type karein ("cheapest rice", "best milk" etc.)
-- Filters lagayein (brand, min rating)
-- Results dekhein — top 3 deals with images, links & review details
+- Select text or voice input
+- Enter your grocery query ("cheapest rice", "best milk", etc.)
+- Apply filters (brand, minimum rating)
+- View results — top 3 deals with images, links, and detailed reviews
 
 ---
 
 ## Workflow
 
 1. **Input**  
-   Grocery related query confirm aur refine hota hai
+   The grocery-related query is confirmed and refined.
 
 2. **Web Search**  
-   Google, Carrefour, Metro se product results laata hai
+   Retrieves product results from Google, Carrefour, Metro.
 
 3. **Comparison**  
-   Top 3 sab se sasti aur tezi se deliver hone wali cheezen select karta hai
+   Selects the top 3 cheapest and fastest-delivery options.
 
 4. **Reviews**  
-   Product ki customer reviews, pros, cons, sentiment extract kiye jate hain
+   Extracts customer reviews, pros, cons, and sentiment for each product.
 
 5. **Recommendation**  
-   Har option ko concise summary mein show karta hai, best deal highlight karta hai
+   Displays a concise summary for each option and highlights the best deal.
 
 ---
 
@@ -114,29 +117,32 @@ streamlit run app.py
 
 - Format: `.wav` (max 5MB)
 - AIML API Whisper-Large (GPT-4o)
-- Network timeout/error ke case mein clear warnings milti hain
+- Clear warnings are provided in case of network timeout or error
 
 ---
 
-## Contributing
-
-- Fork karein, PR bhejein
-- Bugs/Issues report karein (GitHub Issues)
-
----
 ## Team & Contributors
 
-Yeh project in contributors ki mehnat ka nateeja hai:
+This project is the result of the hard work and collaboration of the following contributors:
 
 - [SheemaMasood381](https://github.com/SheemaMasood381)
 - [Tayyab666-star](https://github.com/Tayyab666-star)
 - [EemaanAasghar](https://github.com/EemanAsghar)
 - [Muhammad Ali](https://github.com/alimalik07)
------
+  
+---
+
+## Contributing
+
+- Fork the repository and submit a pull request
+- Report bugs or issues (via GitHub Issues)
+
+---
+
 ## License
 
 MIT
 
 ---
 
-**Developed by Team Alpha | Powered by Streamlit & CrewAI**[web:29]
+**Developed by Team Alpha | Powered by Streamlit & CrewAI**
