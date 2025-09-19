@@ -124,7 +124,15 @@ streamlit run app.py
 - Bugs/Issues report karein (GitHub Issues)
 
 ---
+## Team & Contributors
 
+Yeh project in contributors ki mehnat ka nateeja hai:
+
+- [SheemaMasood381](https://github.com/SheemaMasood381)
+- [Tayyab666-star](https://github.com/Tayyab666-star)
+- [EemaanAasghar](https://github.com/EemanAsghar)
+- [Muhammad Ali](https://github.com/alimalik07)
+-----
 ## License
 
 MIT
