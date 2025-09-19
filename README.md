@@ -1,99 +1,131 @@
+# 🥦 CheapestBuy.AI
 
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-%E2%9C%94%EF%B8%8F-brightgreen.svg)](https://streamlit.io/)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![AIML API](https://img.shields.io/badge/AIML%20API-GPT--4o-important.svg)](https://aimlapi.com/)
+[![Deployment: Windows](https://img.shields.io/badge/Windows-supported-blue.svg)](https://docs.microsoft.com/en-us/windows/)
 
-**CheapestBuy.AI: Your AI-Powered Grocery Assistant**
+---
 
-CheapestBuy.AI is a smart grocery shopping assistant that helps users find the best and most affordable grocery deals in Pakistan. It uses a CrewAI framework to mimic a team of experts who work together to collect user input, search the web, compare products, analyze reviews, and provide clear recommendations.
+## Project Overview
 
-**🚀 Features**
+**CheapestBuy.AI** ek smart, multi-agent grocery shopping assistant hai jo Streamlit aur CrewAI par bana hai.  
+Ye Pakistan me sab se sasti groceries dhundta, compare karta aur recommend karta hai, text aur voice search dono support karta hai[web:29].
 
-**Intelligent Agent Crew:** A team of specialized AI agents works together to fulfill your request.
+---
 
-**Input Collector:** Gathers and clarifies your grocery needs.
+## Features
 
-**Web Search Specialist:** Searches for products across major Pakistani grocery stores like Carrefour, Metro, and Imtiaz.
+- 🔎 Sasti grocery products search (Carrefour, Metro, Imtiaz)
+- 📊 Product comparison: price, delivery, reviews
+- 🤖 Multi-agent pipeline (input, search, analysis, review, recommend)
+- 🔉 Voice search (AIML GPT-4o Whisper support)
+- 💬 User review/sentiment analysis (Daraz, Amazon, AliExpress)
+- 🥇 Top 3 detailed recommendations (image, link, pros, cons, delivery info)
+- 🏷️ Simple, beginner-friendly Streamlit UI with filters & history
 
-**Product Comparison Expert:** Analyzes and ranks the top 3 product options based on price, delivery time, and ratings.
+---
 
-**Review Analyzer:** Summarizes customer reviews to provide pros and cons.
+## Tech Stack
 
-**Recommendation Specialist:** Presents a final, easy-to-read summary of the top deals.
+| Component      | Details                        |
+|----------------|-------------------------------|
+| Python         | 3.10+ [web:29]                |
+| Streamlit      | UI, chat interface            |
+| CrewAI         | Multi-agent workflow          |
+| AIML API       | GPT-4o + Whisper for LLM/STT  |
+| Serper.dev     | Web search (Google results)   |
+| Custom Tools   | Grocery website scrapers      |
 
-**Voice and Text Input:** You can ask for groceries by typing or speaking your request.
+---
 
-**Customizable Filters:** Apply optional filters for minimum rating or preferred brand to refine your search.
+## Quick Start
 
-**Structured Recommendations:** The final output provides a clear, organized view of the top options, including price, rating, and a purchase link.
+### 1. Clone Ya Download Karein
 
-**⚙️ How It Works**
-The application is built on Streamlit for the user interface and CrewAI for the AI workflow. The process is sequential:
+```bash
+git clone https://github.com/teamalpha/cheapestbuy-ai.git
+cd cheapestbuy-ai
 
-**User Input:** The user provides a grocery query via text or voice.
+### 2. Python Environment Setup Karein
 
-**Input Processing:** The Grocery Input Collector agent refines the query and applies any specified filters.
+```bash
+python -m venv .venv
+# Mac/Linux
+source .venv/bin/activate
+# Windows
+.venv\Scripts\activate
 
-**Web Search:** The Web Search Specialist agent uses web scraping tools (SerperDevTool, ScrapeWebsiteTool) to find product listings.
+### 3. Dependencies Install Karein
 
-**Analysis & Ranking:** The Grocery Product Comparison Expert ranks the fetched results to find the best deals.
-
-**Review Summary:** The Grocery Review Analyzer processes product reviews to highlight pros and cons.
-
-**Final Recommendation:** The Grocery Shopping Recommendation Specialist compiles a final, comprehensive summary for the user.
-
-**🛠️ Setup and Installation**
-Prerequisites
-Python 3.8+
-
-An API key from AIMLAPI for the LLM and embedding models.
-
-An API key from SerperDevTool for web searching.
-
-**Installation Steps**
-Clone the repository:
-
-Bash
-
-git clone https://github.com/SheemaMasood381/CheapestBuy_Internet_of_agents_lablab_september2025/
-cd your-repo
-Create and activate a virtual environment:
-
-Bash
-
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-Install the required libraries:
-
-Bash
-
+```bash
 pip install -r requirements.txt
-(Note: You will need to create a requirements.txt file containing all the libraries used in the code, such as crewai, streamlit, requests, python-dotenv, crewai_tools, etc.)
 
-Set up environment variables:
+### 4. API Keys .env Mein Dalen
 
-Create a .env file in the project's root directory.
+```bash
+.env file banayein project ke root folder mein:
 
-Add your API keys:
+AIML_API_KEY=apna_aiml_api_key
+SERPER_API_KEY=apna_serperdev_api_key
 
-AIML_API_KEY="your_aimlapi_key"
-SERPER_API_KEY="your_serper_api_key"
-Run the application:
+### 5. App Run Karein
 
-Bash
-
+```bash
 streamlit run app.py
-(Assuming your main script file is named app.py)
-
-**🤝 Contribution**
-This project was developed by The **Team Alpha** for a hackathon. We welcome contributions from the community. Feel free to open issues or submit pull requests.
-**Team Alpha**
-1)Sheema Masood
-2)Tayyab Nisar
-Github= (https://github.com/Tayyab666-star)
-Email= (tnasir536@gmail.com)
-3)Muhammad Ali
-Github= (https://github.com/alimalik07)
-Email= (engr.ali.7@gmail.com)
-4) Eeman Asghar
-Github= (https://github.com/EemanAsghar)
-Email= (eemanasghar2@gmail.com)
 
 
+
+---
+
+## Usage
+
+- Text ya voice input select karein
+- Grocery ka query type karein ("cheapest rice", "best milk" etc.)
+- Filters lagayein (brand, min rating)
+- Results dekhein — top 3 deals with images, links & review details
+
+---
+
+## Workflow
+
+1. **Input**  
+   Grocery related query confirm aur refine hota hai
+
+2. **Web Search**  
+   Google, Carrefour, Metro se product results laata hai
+
+3. **Comparison**  
+   Top 3 sab se sasti aur tezi se deliver hone wali cheezen select karta hai
+
+4. **Reviews**  
+   Product ki customer reviews, pros, cons, sentiment extract kiye jate hain
+
+5. **Recommendation**  
+   Har option ko concise summary mein show karta hai, best deal highlight karta hai
+
+---
+
+## Voice Search Info
+
+- Format: `.wav` (max 5MB)
+- AIML API Whisper-Large (GPT-4o)
+- Network timeout/error ke case mein clear warnings milti hain
+
+---
+
+## Contributing
+
+- Fork karein, PR bhejein
+- Bugs/Issues report karein (GitHub Issues)
+
+---
+
+## License
+
+MIT
+
+---
+
+**Developed by Team Alpha | Powered by Streamlit & CrewAI**[web:29]
