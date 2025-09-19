@@ -5,38 +5,39 @@
 CheapestBuy.AI is a smart grocery shopping assistant that helps users find the best and most affordable grocery deals in Pakistan. It uses a CrewAI framework to mimic a team of experts who work together to collect user input, search the web, compare products, analyze reviews, and provide clear recommendations.
 
 **🚀 Features**
-Intelligent Agent Crew: A team of specialized AI agents works together to fulfill your request.
 
-Input Collector: Gathers and clarifies your grocery needs.
+**Intelligent Agent Crew:** A team of specialized AI agents works together to fulfill your request.
 
-Web Search Specialist: Searches for products across major Pakistani grocery stores like Carrefour, Metro, and Imtiaz.
+**Input Collector:** Gathers and clarifies your grocery needs.
 
-Product Comparison Expert: Analyzes and ranks the top 3 product options based on price, delivery time, and ratings.
+**Web Search Specialist:** Searches for products across major Pakistani grocery stores like Carrefour, Metro, and Imtiaz.
 
-Review Analyzer: Summarizes customer reviews to provide pros and cons.
+**Product Comparison Expert:** Analyzes and ranks the top 3 product options based on price, delivery time, and ratings.
 
-Recommendation Specialist: Presents a final, easy-to-read summary of the top deals.
+**Review Analyzer:** Summarizes customer reviews to provide pros and cons.
 
-Voice and Text Input: You can ask for groceries by typing or speaking your request.
+**Recommendation Specialist:** Presents a final, easy-to-read summary of the top deals.
 
-Customizable Filters: Apply optional filters for minimum rating or preferred brand to refine your search.
+**Voice and Text Input:** You can ask for groceries by typing or speaking your request.
 
-Structured Recommendations: The final output provides a clear, organized view of the top options, including price, rating, and a purchase link.
+**Customizable Filters:** Apply optional filters for minimum rating or preferred brand to refine your search.
+
+**Structured Recommendations:** The final output provides a clear, organized view of the top options, including price, rating, and a purchase link.
 
 **⚙️ How It Works**
 The application is built on Streamlit for the user interface and CrewAI for the AI workflow. The process is sequential:
 
-User Input: The user provides a grocery query via text or voice.
+**User Input:** The user provides a grocery query via text or voice.
 
-Input Processing: The Grocery Input Collector agent refines the query and applies any specified filters.
+**Input Processing:** The Grocery Input Collector agent refines the query and applies any specified filters.
 
-Web Search: The Web Search Specialist agent uses web scraping tools (SerperDevTool, ScrapeWebsiteTool) to find product listings.
+**Web Search:** The Web Search Specialist agent uses web scraping tools (SerperDevTool, ScrapeWebsiteTool) to find product listings.
 
-Analysis & Ranking: The Grocery Product Comparison Expert ranks the fetched results to find the best deals.
+**Analysis & Ranking:** The Grocery Product Comparison Expert ranks the fetched results to find the best deals.
 
-Review Summary: The Grocery Review Analyzer processes product reviews to highlight pros and cons.
+**Review Summary:** The Grocery Review Analyzer processes product reviews to highlight pros and cons.
 
-Final Recommendation: The Grocery Shopping Recommendation Specialist compiles a final, comprehensive summary for the user.
+**Final Recommendation:** The Grocery Shopping Recommendation Specialist compiles a final, comprehensive summary for the user.
 
 **🛠️ Setup and Installation**
 Prerequisites
@@ -82,4 +83,17 @@ streamlit run app.py
 (Assuming your main script file is named app.py)
 
 **🤝 Contribution**
-This project was developed by The Team Alpha for a hackathon. We welcome contributions from the community. Feel free to open issues or submit pull requests.
+This project was developed by The **Team Alpha** for a hackathon. We welcome contributions from the community. Feel free to open issues or submit pull requests.
+**Team Alpha**
+1)Sheema Masood
+2)Tayyab Nisar
+Github= (https://github.com/Tayyab666-star)
+Email= (tnasir536@gmail.com)
+3)Muhammad Ali
+Github= (https://github.com/alimalik07)
+Email= (engr.ali.7@gmail.com)
+4) Eeman Asghar
+Github= (https://github.com/EemanAsghar)
+Email= (eemanasghar2@gmail.com)
+
+
