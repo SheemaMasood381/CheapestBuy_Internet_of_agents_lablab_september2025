@@ -1,0 +1,6 @@
+streamlit
+crewai-tools
+litellm
+python-dotenv
+SpeechRecognition
+crewai
