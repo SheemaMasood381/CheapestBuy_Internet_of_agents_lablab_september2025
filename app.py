@@ -196,6 +196,13 @@ recommender = Agent(
 )
 
 # Manually format the filters
+if "filters" not in st.session_state:
+    st.session_state["filters"] = {
+        "min_rating": 3.5,
+        "brand": ""
+    }
+
+
 brand = st.session_state["filters"]["brand"].strip() or None
 min_rating = st.session_state["filters"]["min_rating"]
 
@@ -320,10 +327,11 @@ col1, col2 = st.columns([5, 2])
 with col1:
     st.markdown("""
                 <h1 style='margin-bottom: 0;'>🥦 CheapestBuy.AI</h1>
-                <p style='margin-top: 0; font-size: 40px;'>Buy Groceries Smarter - Save More</p>
+                <p style='margin-top: 0; font-size: 30px;'>Buy Groceries Smarter - Save More</p>
                 """, unsafe_allow_html=True)
 with col2:
     st.image("tlogo.png", use_container_width=True)
+
 
 # --- Sidebar ---
 with st.sidebar:
@@ -439,6 +447,7 @@ if st.session_state.user_input:
     st.session_state.user_input = ""
 
 # --- Footer ---
+# --- Footer ---
 st.markdown("""
     <style>
     .custom-footer {
@@ -462,6 +471,7 @@ st.markdown("""
 
     <div class="custom-footer">
         <hr>
-        Powered by Streamlit | Developed by The Team Alpha
+        Powered by Streamlit | Developed by The Team Alpha <br>
+        <b>🤖 Agent Registered with Coral Protocol</b>
     </div>
     """, unsafe_allow_html=True)
