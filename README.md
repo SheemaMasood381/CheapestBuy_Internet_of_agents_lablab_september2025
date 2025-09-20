@@ -18,9 +18,9 @@
 It searches, compares, and recommends the most affordable groceries in Pakistan, supporting both text and voice-based searches.
 
 ---
-
 ## Features
 
+- 🪸 **Registered with Coral Protocol** (Agent registry for secure multi-agent operations)
 - 🔎 Affordable grocery product search (Carrefour, Metro, Imtiaz)
 - 📊 Product comparison: price, delivery options, reviews
 - 🤖 Multi-agent pipeline (input, search, analysis, review, recommendation)
@@ -28,7 +28,6 @@ It searches, compares, and recommends the most affordable groceries in Pakistan,
 - 💬 User review and sentiment analysis (Daraz, Amazon, AliExpress)
 - 🥇 Top 3 detailed recommendations (with images, links, pros, cons, delivery info)
 - 🏷️ Simple, beginner-friendly Streamlit UI with filters & history
-
 ---
 
 ## Tech Stack
@@ -49,6 +48,77 @@ It searches, compares, and recommends the most affordable groceries in Pakistan,
 </p>
 
 ---
+---
+
+## Tech Stack & UI Preview
+
+<table>
+  <tr>
+    <td valign="top" width="48%">
+  
+      <b>Tech Stack</b>
+      <br><br>
+      <table>
+        <tr>
+          <td><b>Component</b></td>
+          <td><b>Details</b></td>
+        </tr>
+        <tr>
+          <td>Python</td>
+          <td>3.10+</td>
+        </tr>
+        <tr>
+          <td>Streamlit</td>
+          <td>UI, chat interface</td>
+        </tr>
+        <tr>
+          <td>CrewAI</td>
+          <td>Multi-agent workflow</td>
+        </tr>
+        <tr>
+          <td>AIML API</td>
+          <td>GPT-4o + Whisper for LLM/STT</td>
+        </tr>
+        <tr>
+          <td>Serper.dev</td>
+          <td>Web search (Google results)</td>
+        </tr>
+        <tr>
+          <td>Custom Tools</td>
+          <td>Grocery website scrapers</td>
+        </tr>
+      </table>
+      <br>
+      <a href="https://your-app-name.onrender.com" target="_blank">
+        <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge" alt="Live Demo on Render">
+      </a>
+    </td>
+    <td valign="top" width="48%">
+      <b>Web App UI</b>
+      <br><br>
+      <img src="UI.png" alt="Web App UI" width="98%">
+    </td>
+  </tr>
+</table>
+
+---
+---
+
+## 🪸 Coral Protocol Integration
+
+Our agent is now registered on [Coral Protocol](https://coralprotocol.com/)!  
+Coral enables secure agent registry and agent interactions across decentralized environments.
+
+- **Agent registry proof:**  
+  <img src="proof_or_agent_registry_in_coral.png" alt="Agent Registry in Coral" width="500"/>
+
+### Agent Registration on Coral Server
+
+To register our agent with Coral, we used an `application.yaml` configuration file.  
+- **Configuration screenshot:**  
+  <img src="application_yaml_to_regiter_agnet_in_coral.png" alt="application.yaml for Coral Registration" width="500"/>
+
+----
 
 ## Quick Start
 
