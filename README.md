@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="logo.png" alt="Team Alpha Logo" width="240"/>
+  <img src="logo.png" alt="CheapestBuy.AI Logo" width="240"/>
 </p>
 
-# 🥦 CheapestBuy.AI
+# 🛒 CheapestBuy.AI → BestBuy.AI (Roadmap)
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-%E2%9C%94%EF%B8%8F-brightgreen.svg)](https://streamlit.io/)
@@ -13,23 +13,28 @@
 
 ---
 
-## Project Overview
+## 🚀 Project Overview
 
-**CheapestBuy.AI** is an intelligent, multi-agent grocery shopping assistant built with Streamlit and CrewAI.  
-It searches, compares, and recommends the most affordable groceries in Pakistan, supporting both text and voice-based searches.
+**CheapestBuy.AI** is an intelligent **AI-powered grocery shopping assistant** built with **Streamlit + CrewAI**.  
+It finds, compares, and recommends the most affordable grocery deals in Pakistan, supporting both **text** and **voice** input.  
+
+👉 The project is evolving into **BestBuy.AI**, a **multi-category AI shopping agent** that covers groceries, fashion, electronics, travel, and more.
 
 ---
-## Features
 
-- 🪸 **Registered with Coral Protocol** (Agent registry for secure multi-agent operations)
-- 🔎 Affordable grocery product search (Carrefour, Metro, Imtiaz)
-- 📊 Product comparison: price, delivery options, reviews
-- 🤖 Multi-agent pipeline (input, search, analysis, review, recommendation)
-- 🔉 Voice search (AIML GPT-4o Whisper integration)
-- 💬 User review and sentiment analysis (Daraz, Amazon, AliExpress)
-- 🥇 Top 3 detailed recommendations (with images, links, pros, cons, delivery info)
-- 🏷️ Simple, beginner-friendly Streamlit UI with filters & history
-- 💳 **Solana Pay checkout** (Devnet USDC, QR code payments with escrow math)
+## ✨ Features
+
+- 🪸 **Registered with Coral Protocol** for secure multi-agent operations
+- 🔎 Smart grocery search (Carrefour, Metro, Imtiaz, Daraz, etc.)
+- 📊 Product comparison (price, delivery, ratings, reviews)
+- 🤖 Multi-agent workflow: input → search → analysis → recommendation
+- 🔉 Voice search (AIML GPT-4o Whisper)
+- 💬 Customer review + sentiment analysis
+- 🥇 Top 3 detailed product recommendations
+- 🏷️ Beginner-friendly Streamlit UI with filters/history
+- 💳 **Solana Pay Checkout (Demo)** with escrow-style fee math
+
+---
 
 ---
 ---
@@ -81,6 +86,36 @@ Coral enables secure agent registry and agent interactions across decentralized 
 </table>
 
 -----
+
+## 🤝 Rent This Agent
+
+**CheapestBuy.AI** agent is **MCP-enabled** and securely registered on [Coral Protocol](https://coralprotocol.com/).  
+This allows **third parties** and **end-users** to easily rent or integrate the agent into their own platforms.
+
+### Why Rent This Agent?
+- 🌍 Embed as a **widget** on your website or e-commerce store  
+- 🛒 Offer your customers **instant cheapest grocery finder** inside your app  
+- 🔐 Secured through **Coral MCP Registry** (verifiable agent identity)  
+- ⚡ Pay-as-you-go or subscription-based renting model  
+- 🧩 Extendable — can be configured for **custom categories** (e.g., hotels, flights, fashion, electronics)  
+
+### Example Use-Cases
+- 🛍️ E-commerce stores embedding grocery comparison in product pages  
+- 🏪 Supermarkets or food chains offering instant price-check tool  
+- ✈️ Travel portals extending with **hotel & flight deal search**  
+- 🧾 Utility apps integrating CheapestBuy.AI as a **side widget**  
+
+---
+
+### 🔗 Embed on Your Website
+
+Add this snippet in your webpage to instantly enable CheapestBuy.AI widget:
+
+```html
+<!-- Embed CheapestBuy.AI Agent -->
+<iframe src="https://bestbuy.ai/widget" width="400" height="600"></iframe>
+
+-------
 ## 💳 Solana Pay Integration (Demo)
 
 This project includes a **demo integration** of Solana Pay using **Devnet USDC**.  
@@ -186,6 +221,27 @@ streamlit run app.py
 - Format: `.wav` (max 5MB)
 - AIML API Whisper-Large (GPT-4o)
 - Clear warnings are provided in case of network timeout or error
+
+---
+
+## 📈 Roadmap (CheapestBuy → BestBuy.AI)
+
+Beyond groceries, BestBuy.AI will expand into multiple categories:
+
+- 💄 Beauty & Personal Care  
+- 💻 Electronics  
+- 🍲 Food & Beverages  
+- 👗 Fashion & Apparel  
+- 🪑 Furniture & Home  
+- 🧹 Household Essentials  
+- 🧸 Toys & Hobbies  
+- 🔨 DIY & Hardware  
+- 👶 Baby Products  
+- 🚗 Auto & Parts  
+- 🏋️ Sports & Fitness  
+- 🏨 Hotel Bookings  
+- ✈️ Flights  
+- 🎯 Personalized Shopping Widgets for 3rd-party sites  
 
 ---
 
