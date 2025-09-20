@@ -26,11 +26,6 @@ MERCHANT_WALLET    = os.getenv("MERCHANT_WALLET")                     # your tre
 PLATFORM_FEE_USDC  = float(os.getenv("PLATFORM_FEE_USDC", "0.5"))     # flat fee added on top
 DEMO_VERIFY_ALWAYS_OK = os.getenv("DEMO_VERIFY_ALWAYS_OK", "1") == "1"
 
-# Optional vendor wallets by source (use if you wire real split payouts later)
-VENDOR_WALLET_CARREFOUR = os.getenv("VENDOR_WALLET_CARREFOUR", "")
-VENDOR_WALLET_METRO     = os.getenv("VENDOR_WALLET_METRO", "")
-VENDOR_WALLET_IMTIAZ    = os.getenv("VENDOR_WALLET_IMTIAZ", "")
-
 # -------------------- AIML LLM --------------------
 aiml_llm = LLM(
     model="gpt-4o",
@@ -119,15 +114,17 @@ search_tool     = SerperDevTool(api_key=SERPER_API_KEY)
 scrape_google   = ScrapeWebsiteTool(website_url='https://google.com/')
 scrape_carrefour= ScrapeWebsiteTool(website_url='https://www.carrefour.pk/')
 scrape_metro    = ScrapeWebsiteTool(website_url='https://www.metro-online.pk/')
+scrape_imtiaz    = ScrapeWebsiteTool(website_url='https://www.imtiaz.com/') 
+# (Add more scrapers as needed)
 
 web_searcher = Agent(
     role="Web Search Specialist",
     goal=(
-        "Find product listings across Google, Carrefour, and Metro Cash & Carry. "
+        "Find product listings across Google, Carrefour, Metro Cash & Carry, and Imtiaz Market. "
         "Return JSON list of dicts with: 'name', 'price', 'rating', 'url', 'image_url', 'source', 'delivery_time'."
     ),
     backstory="Skilled product search expert extracting listings and formatting them properly.",
-    tools=[search_tool, scrape_google, scrape_carrefour, scrape_metro],
+    tools=[search_tool, scrape_google, scrape_carrefour, scrape_metro, scrape_imtiaz],  # added here
     llm=aiml_llm,
     allow_delegation=False,
     verbose=True
@@ -170,14 +167,16 @@ review_tool = WebsiteSearchTool(
 review_agent = Agent(
     role="Grocery Review Analyzer",
     goal=(
-        "Analyze user reviews for the top grocery product (Daraz/Amazon/AliExpress if needed). "
+        "Analyze user reviews for top grocery products from Carrefour, Metro, Imtiaz, "
+        "and any other scraped local grocery stores. "
         "Summarize pros, cons, and overall sentiment (quality, delivery, value for money)."
     ),
     backstory="Summarizes customer feedback into useful insights for buyers.",
-    tools=[review_tool],
+    tools=[review_tool],  # make sure review_tool is set up to fetch reviews from these scraped sources
     llm=aiml_llm,
     verbose=True
 )
+
 
 recommender = Agent(
     role="Grocery Shopping Recommendation Specialist",
@@ -287,210 +286,318 @@ shopping_crew = Crew(
 )
 
 # -------------------- Streamlit UI --------------------
-st.set_page_config(page_title="CheapestBuy.AI", page_icon="🥦")
 
-# Title + Logo
-col1, col2 = st.columns([5, 2])
-with col1:
+# background 
+import base64
+
+def local_file_to_base64(path):
+    with open(path, "rb") as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+png_base64 = local_file_to_base64("logo.png")  # your PNG file
+
+st.markdown(
+    f"""
+    <style>
+    body {{
+        background: url("data:image/png;base64,{png_base64}") no-repeat center center fixed !important;
+        background-size: cover !important;
+    }}
+    .stApp {{
+        background-color: rgba(255, 255, 255, 0.6) !important;
+        backdrop-filter: blur(7px);
+    }}
+    .block-container {{
+        background: transparent !important;
+    }}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+
+# Tabs
+tabs = st.tabs([
+    "🛒 BestBuy.AI (Groceries)",   # Tab 0: Main grocery search
+    "💳 Rent Our Agents Registered with Coral Protocol (MCP)"           # Tab 1: Payment / agent rental
+])
+
+tab1, tab2 = tabs
+
+# Track active tab automatically
+if "current_tab" not in st.session_state:
+    st.session_state.current_tab = 0  # default Tab 0
+
+# --- Tab 1: Groceries Demo ---
+# --- Tab 1: Groceries Demo ---
+with tabs[0]:
+    st.session_state.current_tab = 0
+    st.write("Find the **best grocery deals** instantly from multiple options!")
+
+    col1, col2 = st.columns([5, 2])
+    with col1:
+        st.markdown(
+            """
+            <div style='line-height: 1.2;'>
+                <h1 style='margin-bottom: 5px;'>🛒 BestBuy.AI</h1>
+                <p style='margin-top: 0; font-size: 24px; color: gray;'>
+                    Buy Groceries Smarter - Save More
+                </p>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+    with col2:
+        st.image("logo.png", width="content") 
+    st.markdown("---")
+
+    # Sidebar
+    with st.sidebar:
+        st.header("🛠️ Controls")
+
+        # Handle reset from URL
+        query_params = st.query_params
+        if "reset" in query_params and query_params["reset"] == "1":
+            st.session_state.clear()
+            st.query_params.clear()
+            st.rerun()
+
+        st.subheader("🔍 Grocery Filters (Optional)")
+        filters = {
+            "min_rating": st.slider("Minimum Rating", min_value=1.0, max_value=5.0, value=3.5),
+            "brand": st.text_input("Preferred Grocery Brand", value="")
+        }
+        st.session_state["filters"] = filters
+        st.write("Filters will be applied to grocery product search.")
+
+    # --- Session State ---
+    if "messages" not in st.session_state:
+        st.session_state.messages = []
+    if "input_mode" not in st.session_state:
+        st.session_state.input_mode = "Text"
+    if "user_input" not in st.session_state:
+        st.session_state.user_input = ""
+    if "checkout" not in st.session_state:
+        st.session_state.checkout = {}  # key: idx -> {ref,total,vendor_share,source}
+
+    # Chat history display
+    for msg in st.session_state.messages:
+        with st.chat_message(msg["role"]):
+            st.markdown(msg["content"])
+
+    # Input mode
+    input_mode = st.radio("Choose input type:", ("Text", "Voice"))
+    st.session_state.input_mode = input_mode
+
+    if st.session_state.input_mode == "Text":
+        user_input = st.chat_input("Type your grocery query here (e.g., cheapest milk, rice, sugar)...")
+        if user_input:
+            st.session_state.user_input = user_input
+    else:
+        audio_data = st.audio_input("Speak your grocery query")
+        if audio_data:
+            st.info("Processing audio...")
+            transcribed_text = transcribe_audio_with_aiml(audio_data)
+            if transcribed_text:
+                st.session_state.user_input = transcribed_text
+
+    # --- Run Crew and Render Results + Solana Pay ---
+    if st.session_state.user_input:
+        user_msg = st.session_state.user_input
+        st.session_state.messages.append({"role": "user", "content": user_msg})
+
+        with st.chat_message("user"):
+            st.markdown(user_msg)
+
+        with st.chat_message("assistant"):
+            with st.spinner("Finding the best grocery deals..."):
+                result = shopping_crew.kickoff(inputs={"user_input": user_msg})
+                reply = result.raw
+
+                try:
+                    products = json.loads(reply)
+                    if not isinstance(products, list):
+                        raise ValueError("Not a list")
+
+                    for idx, product in enumerate(products, 1):
+                        st.markdown(f"### 🛒 Option {idx}: {product.get('name', 'No Name')}")
+
+                        # Image
+                        if product.get("image_url"):
+                            st.image(product.get("image_url"), use_container_width=True)
+
+                        # Base fields
+                        price_raw = product.get("price", "N/A")
+                        price_val = parse_price_to_float(price_raw)
+                        source    = (product.get("source") or "").strip() or "Unknown"
+
+                        st.markdown(
+                            f"💵 **Price (vendor):** {price_raw}  \n"
+                            f"⭐ **Rating:** {product.get('rating', 'N/A')}  \n"
+                            f"🚚 **Delivery:** {product.get('delivery_time', 'N/A')}  \n"
+                            f"🔗 [Product Page]({product.get('url', '#')})  \n\n"
+                            f"**Pros:** {', '.join(product.get('pros', [])) if product.get('pros') else 'N/A'}  \n"
+                            f"**Cons:** {', '.join(product.get('cons', [])) if product.get('cons') else 'N/A'}  \n"
+                            f"**Sentiment:** {product.get('sentiment', 'N/A')}"
+                        )
+
+                        st.markdown("---")
+
+                    reply_summary = f"Found {len(products)} grocery options. Best choices shown above."
+
+                except Exception:
+                    # Fallback to raw assistant text if not JSON
+                    st.markdown(reply)
+                    reply_summary = reply
+
+            st.session_state.messages.append({"role": "assistant", "content": reply_summary})
+
+        st.session_state.user_input = ""
+
+
+# --- Tab 2: Rent Our Agent ---
+with tabs[1]:
+    st.session_state.current_tab = 1
+    st.title("💡 Rent BestBuy.AI Agent")
+    st.write(
+        "Experience the convenience of BestBuy.AI — your personal AI shopping assistant. "
+        "Rent now and instantly start saving time and money on online shopping!"
+    )
+    # --- Custom Button CSS ---
     st.markdown(
-        "<h1 style='margin-bottom: 0;'>🥦 CheapestBuy.AI</h1>"
-        "<p style='margin-top: 0; font-size: 30px;'>Buy Groceries Smarter - Save More</p>",
+        """
+        <style>
+        div.stButton > button:first-child {
+            background: linear-gradient(90deg, #007BFF, #00C6FF);  /* Blue gradient */
+            color: white;
+            font-size: 80px;
+            font-weight: bold;
+            padding: 20px 250px;
+            border-radius: 15px;
+            border: none;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.25);
+            transition: 0.3s;
+        }
+        div.stButton > button:first-child:hover {
+            background: linear-gradient(90deg, #6f42c1, #b266ff);  /* Purple gradient on hover */
+            box-shadow: 0px 6px 15px rgba(0,0,0,0.35);
+            transform: scale(1.05);
+        }
+        </style>
+        """,
         unsafe_allow_html=True
     )
-with col2:
-    st.image("tlogo.png", use_container_width=True)
 
-# Sidebar
-with st.sidebar:
-    st.header("🛠️ Controls")
+    # --- Plan Selection ---
+    plan = st.radio(
+        "Choose Your Plan",
+        options=["Monthly - 1 USDC (Demo)", "Yearly - 10 USDC (Demo)"],
+        index=0,
+        horizontal=True
+    )
+    amount_usdc = 1.0 if plan.startswith("Monthly") else 10.0
 
-    # Handle reset from URL
-    query_params = st.query_params
-    if "reset" in query_params and query_params["reset"] == "1":
-        st.session_state.clear()
-        st.query_params.clear()
-        st.rerun()
+    # --- Rent Button ---
+    if st.button("💳 Rent This Agent"):
+        payment = create_payment(amount_usdc=amount_usdc)
+        st.session_state["last_payment_reference"] = payment["reference"]
+        st.image(payment["qr_png_bytes"], caption="Scan with Phantom Wallet to pay via Solana Pay")
+        st.write(f"Payment Link: [{payment['pay_url']}]({payment['pay_url']})")
 
-    if st.button("🧹 Start New Search"):
-        st.query_params["reset"] = "1"
-        st.rerun()
+        if st.session_state.get("demo_mode", True):
+            # Auto show demo success
+            # Demo success
+            st.success("✅ Payment confirmed! (Demo Mode)")
+            st.session_state["demo_payment_success"] = True
+            st.success(f"✅ Payment Successful for {plan}! Thank you for renting BestBuy.AI (Demo Mode)")
+            st.info(
+                """
+                🎉 **Your BestBuy.AI agent is now ready to use!**
 
-    if st.button("🔄 Reset Session"):
-        st.session_state.clear()
-        st.rerun()
+                **Here’s what you can do next:**
+                - Access your agent instantly online via your personal dashboard or a secure platform link.
+                - Integrate the agent into your website with our embed widget (HTML snippet provided upon request).
+                - Need help or want a custom setup? Contact our team:
 
-    st.subheader("🔍 Grocery Filters (Optional)")
-    filters = {
-        "min_rating": st.slider("Minimum Rating", min_value=1.0, max_value=5.0, value=3.5),
-        "brand": st.text_input("Preferred Grocery Brand", value="")
-    }
-    st.session_state["filters"] = filters
-    st.write("Filters will be applied to grocery product search.")
+                **Email:** support@bestbuy.ai  
+                **Phone:** +92-300-XXXXXXX  
+                **Website:** [www.bestbuy.ai](https://www.bestbuy.ai)
 
-# --- Session State ---
-if "messages" not in st.session_state:
-    st.session_state.messages = []
-if "input_mode" not in st.session_state:
-    st.session_state.input_mode = "Text"
-if "user_input" not in st.session_state:
-    st.session_state.user_input = ""
-if "checkout" not in st.session_state:
-    st.session_state.checkout = {}  # key: idx -> {ref,total,vendor_share,source}
+                ⚠️ **No download required** — BestBuy.AI runs securely in the cloud.
+                """
+            )
+            
 
-# Chat history display
-for msg in st.session_state.messages:
-    with st.chat_message(msg["role"]):
-        st.markdown(msg["content"])
+    # --- Verify Payment Section ---
+    ref = st.session_state.get("last_payment_reference")
+    if ref:
+        st.markdown("### 🔍 Verify Payment (Live Blockchain Check)")
+        st.write(
+            "Click the button below to confirm the payment on the Solana blockchain. "
+            "⚠️ This is **real-time verification** — it will only succeed if the payment was actually made. "
+            "Demo payments shown above are for presentation purposes only."
+        )
 
-# Input mode
-input_mode = st.radio("Choose input type:", ("Text", "Voice"))
-st.session_state.input_mode = input_mode
+        if st.button("✅ Verify Payment"):
+            if st.session_state.get("demo_payment_success", False):
+                st.info(
+                    "⚠️ Note: The previous success message was in demo mode. "
+                    "This verification will check the real blockchain transaction."
+                )
 
-if st.session_state.input_mode == "Text":
-    user_input = st.chat_input("Type your grocery query here (e.g., cheapest milk, rice, sugar)...")
-    if user_input:
-        st.session_state.user_input = user_input
-else:
-    audio_data = st.audio_input("Speak your grocery query")
-    if audio_data:
-        st.info("Processing audio...")
-        transcribed_text = transcribe_audio_with_aiml(audio_data)
-        if transcribed_text:
-            st.session_state.user_input = transcribed_text
+            # Call Helius API to verify payment
+            result = verify_payment_by_memo(ref, timeout_sec=30)
+            if result["ok"]:
+                st.success("✅ Payment confirmed on Solana blockchain! Signature: " + result["signature"])
+                st.info(
+                    "🎉 The agent is now officially active. "
+                    "You can access it via your dashboard or integration link."
+                )
+            else:
+                st.warning(
+                    "⏳ Payment not yet confirmed on the blockchain. "
+                    "Please wait a few moments and try again."
+                )
 
-# --- Run Crew and Render Results + Solana Pay ---
-if st.session_state.user_input:
-    user_msg = st.session_state.user_input
-    st.session_state.messages.append({"role": "user", "content": user_msg})
 
-    with st.chat_message("user"):
-        st.markdown(user_msg)
 
-    with st.chat_message("assistant"):
-        with st.spinner("Finding the best grocery deals..."):
-            result = shopping_crew.kickoff(inputs={"user_input": user_msg})
-            reply = result.raw
+    st.divider()
 
-            try:
-                products = json.loads(reply)
-                if not isinstance(products, list):
-                    raise ValueError("Not a list")
+    # Why Choose BestBuy.AI
+    st.subheader("🚀 Why Choose BestBuy.AI?")
+    st.write("""
+    BestBuy.AI is your **smart online shopping assistant**, saving you time and money by instantly finding the **best deals** from multiple stores and brands.  
+    Say goodbye to endless scrolling and comparing — get **personalized, efficient, and reliable shopping recommendations** in seconds.
+    """)
 
-                for idx, product in enumerate(products, 1):
-                    st.markdown(f"### 🛒 Option {idx}: {product.get('name', 'No Name')}")
+    # Our Solution
+    st.subheader("✅ How BestBuy.AI Works")
+    st.write("""
+    - Instantly searches across **top grocery stores** to find the **lowest prices and best deals**.  
+    - Summarizes **customer reviews** to highlight pros, cons, and overall satisfaction.  
+    - Easy integration for **third-party platforms** to enhance their customer experience.  
+    """)
 
-                    # Image
-                    if product.get("image_url"):
-                        st.image(product.get("image_url"), use_container_width=True)
+    # Future Growth
+    st.subheader("📈 Future Expansion & Innovations")
+    st.write("""
+    BestBuy.AI will expand beyond groceries to cover multiple categories:
 
-                    # Base fields
-                    price_raw = product.get("price", "N/A")
-                    price_val = parse_price_to_float(price_raw)
-                    source    = (product.get("source") or "").strip() or "Unknown"
+    - 💄 Beauty & Personal Care  
+    - 💻 Electronics  
+    - 🍲 Food & Beverages  
+    - 👗 Fashion & Apparel  
+    - 🪑 Home & Furniture  
+    - 🧸 Toys & Hobbies  
+    - 🔨 DIY & Hardware  
+    - 🏋️ Sports & Fitness  
+    - ✈️ Travel & Bookings  
 
-                    st.markdown(
-                        f"💵 **Price (vendor):** {price_raw}  \n"
-                        f"⭐ **Rating:** {product.get('rating', 'N/A')}  \n"
-                        f"🚚 **Delivery:** {product.get('delivery_time', 'N/A')}  \n"
-                        f"🔗 [Product Page]({product.get('url', '#')})  \n\n"
-                        f"**Pros:** {', '.join(product.get('pros', [])) if product.get('pros') else 'N/A'}  \n"
-                        f"**Cons:** {', '.join(product.get('cons', [])) if product.get('cons') else 'N/A'}  \n"
-                        f"**Sentiment:** {product.get('sentiment', 'N/A')}"
-                    )
+    *(...and more innovative agents coming soon!)*  
+    """)
 
-                    # If price not parseable, skip checkout
-                    if price_val is None:
-                        st.info("Price could not be parsed — cannot checkout this item.")
-                        st.markdown("---")
-                        continue
-
-                    # Fee math
-                    total_due    = round(price_val + PLATFORM_FEE_USDC, 4)
-                    vendor_share = round(price_val, 4)
-
-                    st.markdown(
-                        f"**Checkout total (USDC):** `{total_due}` "
-                        f"(includes platform fee `${PLATFORM_FEE_USDC:.2f}`)"
-                    )
-
-                    # (Optional) Map vendors to wallets if you later enable auto-split payouts
-                    vendor_pubkey = None
-                    src_lower = source.lower()
-                    if src_lower.startswith("carrefour") and VENDOR_WALLET_CARREFOUR:
-                        vendor_pubkey = VENDOR_WALLET_CARREFOUR
-                    elif src_lower.startswith("metro") and VENDOR_WALLET_METRO:
-                        vendor_pubkey = VENDOR_WALLET_METRO
-                    elif src_lower.startswith("imtiaz") and VENDOR_WALLET_IMTIAZ:
-                        vendor_pubkey = VENDOR_WALLET_IMTIAZ
-
-                    col_buy, col_verify = st.columns(2)
-
-                    # Generate QR
-                    with col_buy:
-                        if st.button("🟣 Buy with Solana Pay", key=f"buy_{idx}"):
-                            if not MERCHANT_WALLET:
-                                st.error("Set MERCHANT_WALLET in .env to generate a payment QR.")
-                            else:
-                                try:
-                                    # Demo behavior: single-recipient QR to merchant wallet (like your demo app)
-                                    pay = create_payment(total_due)
-                                except Exception as e:
-                                    st.error(f"Failed to create payment: {e}")
-                                else:
-                                    st.session_state.checkout[idx] = {
-                                        "ref": pay["reference"],
-                                        "total": total_due,
-                                        "vendor_share": vendor_share,
-                                        "source": source,
-                                    }
-                                    st.image(pay["qr_png_bytes"], caption=f"Scan to pay {total_due} USDC (Devnet)")
-                                    st.code(pay["pay_url"], language="text")
-                                    st.markdown(f"[Open in Phantom]({pay['pay_url']})")
-
-                    # Verify payment
-                    with col_verify:
-                        if st.button("✅ Verify Payment", key=f"verify_{idx}"):
-                            entry = st.session_state.checkout.get(idx)
-                            if not entry:
-                                st.warning("Generate the QR first for this item.")
-                            else:
-                                if DEMO_VERIFY_ALWAYS_OK:
-                                    ok = True
-                                else:
-                                    try:
-                                        res = verify_payment_by_memo(entry["ref"])
-                                        ok = bool(res.get("ok"))
-                                    except Exception as e:
-                                        ok = False
-                                        st.warning(f"Verification error: {e}")
-
-                                if ok:
-                                    st.success(
-                                        f"✅ Payment confirmed!\n\n"
-                                        f"- **Total received:** {entry['total']} USDC  \n"
-                                        f"- **Platform fee:** {PLATFORM_FEE_USDC:.2f} USDC  \n"
-                                        f"- **Vendor amount (escrow math):** {entry['vendor_share']} USDC  \n"
-                                        f"- **Vendor source:** {entry['source']}"
-                                    )
-                                    st.info(
-                                        "Demo-style escrow: funds are received by your merchant wallet. "
-                                        "In production, auto-payout vendor share post-confirmation, or switch to a split tx."
-                                    )
-                                else:
-                                    st.info("Not confirmed yet. Try again.")
-
-                    st.markdown("---")
-
-                reply_summary = f"Found {len(products)} grocery options. Best choices shown above."
-
-            except Exception:
-                # Fallback to raw assistant text if not JSON
-                st.markdown(reply)
-                reply_summary = reply
-
-        st.session_state.messages.append({"role": "assistant", "content": reply_summary})
-
-    st.session_state.user_input = ""
+    st.info("Rent this agent securely via **Phantom Wallet / Solana Pay** and experience smarter online shopping today!")
 
 # --- Footer ---
 st.markdown("""
@@ -507,6 +614,6 @@ st.markdown("""
     <div class="custom-footer">
         <hr>
         Powered by Streamlit | Developed by The Team Alpha <br>
-        <b>🤖 Agent Registered with Coral Protocol</b>
+        <b>🤖 Agent Registered with Coral Protocol</b> | Rent Agent securely via <b>Phantom / Solana Pay</b>
     </div>
 """, unsafe_allow_html=True)

@@ -13,7 +13,7 @@ USDC_MAIN = os.getenv("USDC_MINT_MAINNET", "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGk
 USDC_DEV  = os.getenv("USDC_MINT_DEVNET", "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v")
 USDC = USDC_MAIN if ENV == "mainnet" else USDC_DEV
 
-def create_payment(amount_usdc: float, label="CheapestBuy", message="Agent credits"):
+def create_payment(amount_usdc: float, label="BestBuy", message="Agent credits"):
     ref = uuid.uuid4().hex
     params = {
         "amount": f"{amount_usdc}",
