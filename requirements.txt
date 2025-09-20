@@ -8,3 +8,6 @@ solana==0.35.0
 solders>=0.21.0,<0.22.0
 qrcode
 requests
+construct==2.10.68
+chroma-hnswlib==0.7.3
+chromadb
