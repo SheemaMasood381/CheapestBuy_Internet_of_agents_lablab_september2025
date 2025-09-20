@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="logo.png" alt="Team Alpha Logo" width="240"/>
+  <img src="logo.png" alt="CheapestBuy.AI Logo" width="240"/>
 </p>
 
-# 🥦 CheapestBuy.AI
+# 🛒 CheapestBuy.AI → BestBuy.AI (Roadmap)
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-%E2%9C%94%EF%B8%8F-brightgreen.svg)](https://streamlit.io/)
@@ -13,24 +13,49 @@
 
 ---
 
-## Project Overview
+## 🚀 Project Overview
 
-**CheapestBuy.AI** is an intelligent, multi-agent grocery shopping assistant built with Streamlit and CrewAI.  
-It searches, compares, and recommends the most affordable groceries in Pakistan, supporting both text and voice-based searches.
+**CheapestBuy.AI** is an intelligent **AI-powered grocery shopping assistant** built with **Streamlit + CrewAI**.  
+It finds, compares, and recommends the most affordable grocery deals in Pakistan, supporting both **text** and **voice** input.  
+
+👉 The project is evolving into **BestBuy.AI**, a **multi-category AI shopping agent** that covers groceries, fashion, electronics, travel, and more.
 
 ---
-## Features
 
-- 🪸 **Registered with Coral Protocol** (Agent registry for secure multi-agent operations)
-- 🔎 Affordable grocery product search (Carrefour, Metro, Imtiaz)
-- 📊 Product comparison: price, delivery options, reviews
-- 🤖 Multi-agent pipeline (input, search, analysis, review, recommendation)
-- 🔉 Voice search (AIML GPT-4o Whisper integration)
-- 💬 User review and sentiment analysis (Daraz, Amazon, AliExpress)
-- 🥇 Top 3 detailed recommendations (with images, links, pros, cons, delivery info)
-- 🏷️ Simple, beginner-friendly Streamlit UI with filters & history
-- 💳 **Solana Pay checkout** (Devnet USDC, QR code payments with escrow math)
+## ✨ Features
 
+- 🪸 **Registered with Coral Protocol** for secure multi-agent operations
+- 🔎 Smart grocery search (Carrefour, Metro, Imtiaz, Daraz, etc.)
+- 📊 Product comparison (price, delivery, ratings, reviews)
+- 🤖 Multi-agent workflow: input → search → analysis → recommendation
+- 🔉 Voice search (AIML GPT-4o Whisper)
+- 💬 Customer review + sentiment analysis
+- 🥇 Top 3 detailed product recommendations
+- 🏷️ Beginner-friendly Streamlit UI with filters/history
+- 💳 **Solana Pay Checkout (Demo)** with escrow-style fee math
+
+---
+
+## 📈 Roadmap (CheapestBuy → BestBuy.AI)
+
+Beyond groceries, BestBuy.AI will expand into multiple categories:
+
+- 💄 Beauty & Personal Care  
+- 💻 Electronics  
+- 🍲 Food & Beverages  
+- 👗 Fashion & Apparel  
+- 🪑 Furniture & Home  
+- 🧹 Household Essentials  
+- 🧸 Toys & Hobbies  
+- 🔨 DIY & Hardware  
+- 👶 Baby Products  
+- 🚗 Auto & Parts  
+- 🏋️ Sports & Fitness  
+- 🏨 Hotel Bookings  
+- ✈️ Flights  
+- 🎯 Personalized Shopping Widgets for 3rd-party sites  
+
+---
 ---
 ---
 <table>
