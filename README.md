@@ -54,23 +54,6 @@ It searches, compares, and recommends the most affordable groceries in Pakistan,
 </tr>
 </table>
 
-
----
-
-## 🪸 Coral Protocol Integration
-
-Our agent is now registered on [Coral Protocol](https://coralprotocol.com/)!  
-Coral enables secure agent registry and agent interactions across decentralized environments.
-
-- **Agent registry proof:**  
-  <img src="proof_or_agent_registry_in_coral.png" alt="Agent Registry in Coral" width="500"/>
-
-### Agent Registration on Coral Server
-
-To register our agent with Coral, we used an `application.yaml` configuration file.  
-- **Configuration screenshot:**  
-  <img src="application_yaml_to_register_agent_in_coral.png" alt="application.yaml for Coral Registration" width="500"/>
-
 ----
 ## 🪸 Coral Protocol Integration
 
