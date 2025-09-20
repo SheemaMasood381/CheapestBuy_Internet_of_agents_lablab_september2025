@@ -41,14 +41,27 @@ It finds, compares, and recommends the most affordable grocery deals in Pakistan
 
 <h2>Tech Stack</h2>
 
-| Component    | Details                      |
-|--------------|------------------------------|
-| Python       | 3.10+                        |
-| Streamlit    | UI, chat interface           |
-| CrewAI       | Multi-agent workflow         |
-| AIML API     | GPT-4o + Whisper for LLM/STT |
-| Serper.dev   | Web search (Google results)  |
-| Custom Tools | Grocery website scrapers     |
+| Component          | Details / Usage                                  |
+|--------------------|--------------------------------------------------|
+| Python             | 3.10+                                            |
+| Streamlit          | Web UI, dashboard, chat interface                |
+| CrewAI             | Multi-agent orchestration                        |
+| crewai-tools       | Pre-built tools for agents (search, scrape, etc.)|
+| LiteLLM            | Lightweight LLM API wrapper                      |
+| AIML API           | GPT-4o + Whisper for LLM/STT                     |
+| Serper.dev         | Web search (Google results)                      |
+| SpeechRecognition  | Voice input handling                             |
+| python-dotenv      | Environment variable management                  |
+| requests           | HTTP requests                                    |
+| qrcode             | Generate QR codes                                |
+| Solana (0.35.0)    | Solana blockchain integration                    |
+| solders (0.21.x)   | Solana SDK dependency (transaction signing)       |
+| Helius API         | Solana blockchain data/transaction API           |
+| construct (2.10.68)| Binary data parsing                              |
+| ChromaDB           | Vector database for embeddings                   |
+| chroma-hnswlib     | ANN index (HNSW) backend for ChromaDB            |
+| Custom Tools       | Grocery website scrapers                         |
+
 
 </td>
 <td width="50%" align="center">
