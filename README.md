@@ -114,7 +114,7 @@ Add this snippet in your webpage to instantly enable CheapestBuy.AI widget:
 ```html
 <!-- Embed CheapestBuy.AI Agent -->
 <iframe src="https://bestbuy.ai/widget" width="400" height="600"></iframe>
-'''
+```
 
 -------
 
