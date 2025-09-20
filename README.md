@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="tlogo.png" alt="Team Alpha Logo" width="240"/>
+  <img src="logo.png" alt="Team Alpha Logo" width="240"/>
 </p>
 
 # 🥦 CheapestBuy.AI
@@ -32,76 +32,37 @@ It searches, compares, and recommends the most affordable groceries in Pakistan,
 
 ## Tech Stack
 
-| Component      | Details                        |
-|----------------|-------------------------------|
-| Python         | 3.10+                          |
-| Streamlit      | UI, chat interface             |
-| CrewAI         | Multi-agent workflow           |
-| AIML API       | GPT-4o + Whisper for LLM/STT   |
-| Serper.dev     | Web search (Google results)    |
-| Custom Tools   | Grocery website scrapers       |
+<div style="display: flex; align-items: center; justify-content: center; gap: 30px;">
 
-<p align="center">
-  <a href="https://your-app-name.onrender.com" target="_blank">
-    <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge" alt="Live Demo on Render">
-  </a>
-</p>
+  <!-- Left side: Tech Stack table -->
+  <div style="flex: 1;">
+    
+  ## Tech Stack
 
----
----
+  | Component      | Details                        |
+  |----------------|-------------------------------|
+  | Python         | 3.10+                          |
+  | Streamlit      | UI, chat interface             |
+  | CrewAI         | Multi-agent workflow           |
+  | AIML API       | GPT-4o + Whisper for LLM/STT   |
+  | Serper.dev     | Web search (Google results)    |
+  | Custom Tools   | Grocery website scrapers       |
 
-## Tech Stack & UI Preview
+  </div>
 
-<table>
-  <tr>
-    <td valign="top" width="48%">
-  
-      <b>Tech Stack</b>
-      <br><br>
-      <table>
-        <tr>
-          <td><b>Component</b></td>
-          <td><b>Details</b></td>
-        </tr>
-        <tr>
-          <td>Python</td>
-          <td>3.10+</td>
-        </tr>
-        <tr>
-          <td>Streamlit</td>
-          <td>UI, chat interface</td>
-        </tr>
-        <tr>
-          <td>CrewAI</td>
-          <td>Multi-agent workflow</td>
-        </tr>
-        <tr>
-          <td>AIML API</td>
-          <td>GPT-4o + Whisper for LLM/STT</td>
-        </tr>
-        <tr>
-          <td>Serper.dev</td>
-          <td>Web search (Google results)</td>
-        </tr>
-        <tr>
-          <td>Custom Tools</td>
-          <td>Grocery website scrapers</td>
-        </tr>
-      </table>
-      <br>
-      <a href="https://your-app-name.onrender.com" target="_blank">
-        <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge" alt="Live Demo on Render">
-      </a>
-    </td>
-    <td valign="top" width="48%">
-      <b>Web App UI</b>
-      <br><br>
-      <img src="UI.png" alt="Web App UI" width="98%">
-    </td>
-  </tr>
-</table>
+  <!-- Right side: Image -->
+  <div style="flex: 1; text-align: center;">
+    <a href="https://your-app-name.onrender.com" target="_blank">
+      <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge" alt="Live Demo on Render">
+    </a>
+    <br>
+    <img src="https://placehold.co/250x250" alt="App Preview" style="margin-top:15px; border-radius:12px;">
+  </div>
+
+</div>
 
 ---
+
 ---
 
 ## 🪸 Coral Protocol Integration
