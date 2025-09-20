@@ -98,6 +98,7 @@ It is meant for hackathon/demo purposes only — not for production payments.
 2. Phantom wallet opens with a **demo Devnet USDC payment request**.  
 3. After sending, user clicks **Verify Payment**.  
 4. App confirms amount + fee split (escrow-style).  
+<img width="634" height="458" alt="image" src="https://github.com/user-attachments/assets/fb60660f-5584-4324-9100-3f0e45aef528" />
 
 ## Quick Start
 
