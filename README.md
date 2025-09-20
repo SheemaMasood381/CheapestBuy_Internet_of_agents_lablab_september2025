@@ -114,8 +114,10 @@ Add this snippet in your webpage to instantly enable CheapestBuy.AI widget:
 ```html
 <!-- Embed CheapestBuy.AI Agent -->
 <iframe src="https://bestbuy.ai/widget" width="400" height="600"></iframe>
+'''
 
 -------
+
 ## 💳 Solana Pay Integration (Demo)
 
 This project includes a **demo integration** of Solana Pay using **Devnet USDC**.  
