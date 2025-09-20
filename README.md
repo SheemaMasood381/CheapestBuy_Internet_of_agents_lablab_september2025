@@ -61,31 +61,34 @@ It searches, compares, and recommends the most affordable groceries in Pakistan,
 
 
 ---
-<div style="display: flex; align-items: flex-start; justify-content: center; gap: 40px;">
+<table>
+  <tr>
+    <!-- Left side -->
+    <td>
 
-  <!-- Left: Tech Stack -->
-  <div style="flex: 1;">
-    <h2>Tech Stack</h2>
-    <table>
-      <tr><td><b>Python</b></td><td>3.10+</td></tr>
-      <tr><td><b>Streamlit</b></td><td>UI, chat interface</td></tr>
-      <tr><td><b>CrewAI</b></td><td>Multi-agent workflow</td></tr>
-      <tr><td><b>AIML API</b></td><td>GPT-4o + Whisper for LLM/STT</td></tr>
-      <tr><td><b>Serper.dev</b></td><td>Web search (Google results)</td></tr>
-      <tr><td><b>Custom Tools</b></td><td>Grocery website scrapers</td></tr>
-    </table>
-  </div>
+<h2>Tech Stack</h2>
 
-  <!-- Right: Image -->
-  <div style="flex: 1; text-align: center;">
-    <a href="https://your-app-name.onrender.com" target="_blank">
-      <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge" alt="Live Demo on Render">
-    </a>
-    <br><br>
-    <img src="UI.png" alt="App UI Preview" style="max-width: 100%; border-radius: 12px;">
-  </div>
+<ul>
+  <li><b>Python</b> — 3.10+</li>
+  <li><b>Streamlit</b> — UI, chat interface</li>
+  <li><b>CrewAI</b> — Multi-agent workflow</li>
+  <li><b>AIML API</b> — GPT-4o + Whisper for LLM/STT</li>
+  <li><b>Serper.dev</b> — Web search (Google results)</li>
+  <li><b>Custom Tools</b> — Grocery website scrapers</li>
+</ul>
 
-</div>
+    </td>
+
+    <!-- Right side -->
+    <td>
+      <a href="https://your-app-name.onrender.com" target="_blank">
+        <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge" alt="Live Demo on Render">
+      </a>
+      <br><br>
+      <img src="UI.png" alt="App UI Preview" width="300" style="border-radius:12px;">
+    </td>
+  </tr>
+</table>
 
 ---
 
