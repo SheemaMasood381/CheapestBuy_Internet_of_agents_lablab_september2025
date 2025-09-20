@@ -29,37 +29,6 @@ It searches, compares, and recommends the most affordable groceries in Pakistan,
 - 🥇 Top 3 detailed recommendations (with images, links, pros, cons, delivery info)
 - 🏷️ Simple, beginner-friendly Streamlit UI with filters & history
 ---
-
-<div style="display: flex; align-items: center; justify-content: center; gap: 30px;">
-
-  <!-- Left side: Tech Stack table -->
-  <div style="flex: 1;">
-
-  ## Tech Stack
-
-  | Component      | Details                        |
-  |----------------|-------------------------------|
-  | Python         | 3.10+                          |
-  | Streamlit      | UI, chat interface             |
-  | CrewAI         | Multi-agent workflow           |
-  | AIML API       | GPT-4o + Whisper for LLM/STT   |
-  | Serper.dev     | Web search (Google results)    |
-  | Custom Tools   | Grocery website scrapers       |
-
-  </div>
-
-  <!-- Right side: Image -->
-  <div style="flex: 1; text-align: center;">
-    <a href="https://your-app-name.onrender.com" target="_blank">
-      <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge" alt="Live Demo on Render">
-    </a>
-    <br>
-    <img src="UI.png" alt="App UI Preview" style="margin-top:15px; border-radius:12px; max-width:50%; height:auto;">
-  </div>
-
-</div>
-
-
 ---
 <table>
 <tr>
@@ -79,7 +48,7 @@ It searches, compares, and recommends the most affordable groceries in Pakistan,
 </td>
 <td width="50%" align="center">
 
-<img src="UI.png" alt="App UI Preview" width="300">
+<img src="UI.png" alt="App UI Preview" width="500">
 
 </td>
 </tr>
