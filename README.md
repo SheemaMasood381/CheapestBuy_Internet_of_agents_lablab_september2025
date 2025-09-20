@@ -113,7 +113,7 @@ Add this snippet in your webpage to instantly enable CheapestBuy.AI widget:
 
 ```html
 <!-- Embed CheapestBuy.AI Agent -->
-<iframe src="https://bestbuy.ai/widget" width="400" height="600"></iframe>
+<iframe src="https://cheapestbuy.ai/widget" width="400" height="600"></iframe>
 ```
 
 -------
@@ -136,6 +136,30 @@ It is meant for hackathon/demo purposes only — not for production payments.
 3. After sending, user clicks **Verify Payment**.  
 4. App confirms amount + fee split (escrow-style).  
 <img width="634" height="458" alt="image" src="https://github.com/user-attachments/assets/fb60660f-5584-4324-9100-3f0e45aef528" />
+
+------------
+
+### 🧪 Demo Payment Flow
+
+When the user selects **Rent This Agent**, the app generates a Solana Pay QR (Devnet USDC).  
+After scanning with Phantom, the **demo mode** confirms payment instantly.  
+
+<p align="center">
+  <img src="UI_Tab2(demo_version).png" alt="Demo Rent Agent Flow" width="600"/>
+</p>
+
+---
+
+### 🔍 Live Blockchain Verification
+
+The app also supports **real-time verification** on Solana Devnet via Helius API.  
+This ensures the payment memo is actually confirmed on-chain before activating the agent.  
+
+<p align="center">
+  <img src="Live_solana_blockchain_verification.png" alt="Live Solana Blockchain Verification" width="600"/>
+</p>
+--------
+
 
 ## Quick Start
 
