@@ -142,7 +142,7 @@ When the user selects **Rent This Agent**, the app generates a Solana Pay QR (De
 After scanning with Phantom, the **demo mode** confirms payment instantly.  
 
 <p align="center">
-  <img src="UI_Tab2(demo_version).png" alt="Demo Rent Agent Flow" width="600"/>
+  <img src="Succesful_payment_demo.png" alt="Demo Rent Agent Flow" width="600"/>
 </p>
 
 ---
