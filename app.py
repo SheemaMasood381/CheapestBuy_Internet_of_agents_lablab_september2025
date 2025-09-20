@@ -319,7 +319,7 @@ st.markdown(
 
 # Tabs
 tabs = st.tabs([
-    "🛒 BestBuy.AI (Groceries)",   # Tab 0: Main grocery search
+    "🛒 CheapestBuy.AI (Groceries)",   # Tab 0: Main grocery search
     "💳 Rent Our Agents Registered with Coral Protocol (MCP)"           # Tab 1: Payment / agent rental
 ])
 
@@ -340,7 +340,7 @@ with tabs[0]:
         st.markdown(
             """
             <div style='line-height: 1.2;'>
-                <h1 style='margin-bottom: 5px;'>🛒 BestBuy.AI</h1>
+                <h1 style='margin-bottom: 5px;'>🛒 CheapestBuy.AI</h1>
                 <p style='margin-top: 0; font-size: 24px; color: gray;'>
                     Buy Groceries Smarter - Save More
                 </p>
@@ -459,9 +459,9 @@ with tabs[0]:
 # --- Tab 2: Rent Our Agent ---
 with tabs[1]:
     st.session_state.current_tab = 1
-    st.title("💡 Rent BestBuy.AI Agent")
+    st.title("💡 Rent CheapestBuy.AI Agent")
     st.write(
-        "Experience the convenience of BestBuy.AI — your personal AI shopping assistant. "
+        "Experience the convenience of CheapestBuy.AI — your personal AI shopping assistant. "
         "Rent now and instantly start saving time and money on online shopping!"
     )
     # --- Custom Button CSS ---
@@ -513,18 +513,18 @@ with tabs[1]:
             st.success(f"✅ Payment Successful for {plan}! Thank you for renting BestBuy.AI (Demo Mode)")
             st.info(
                 """
-                🎉 **Your BestBuy.AI agent is now ready to use!**
+                🎉 **Your CheapestBuy.AI agent is now ready to use!**
 
                 **Here’s what you can do next:**
                 - Access your agent instantly online via your personal dashboard or a secure platform link.
                 - Integrate the agent into your website with our embed widget (HTML snippet provided upon request).
                 - Need help or want a custom setup? Contact our team:
 
-                **Email:** support@bestbuy.ai  
+                **Email:** support@team_alpha.com
                 **Phone:** +92-300-XXXXXXX  
-                **Website:** [www.bestbuy.ai](https://www.bestbuy.ai)
+                **Website:** [www.bestbuy.ai](https://www.cheapestbuy.ai)
 
-                ⚠️ **No download required** — BestBuy.AI runs securely in the cloud.
+                ⚠️ **No download required** — CheapestBuy.AI runs securely in the cloud.
                 """
             )
             
@@ -565,14 +565,14 @@ with tabs[1]:
     st.divider()
 
     # Why Choose BestBuy.AI
-    st.subheader("🚀 Why Choose BestBuy.AI?")
+    st.subheader("🚀 Why Choose CheapestBuy.AI?")
     st.write("""
     BestBuy.AI is your **smart online shopping assistant**, saving you time and money by instantly finding the **best deals** from multiple stores and brands.  
     Say goodbye to endless scrolling and comparing — get **personalized, efficient, and reliable shopping recommendations** in seconds.
     """)
 
     # Our Solution
-    st.subheader("✅ How BestBuy.AI Works")
+    st.subheader("✅ How CheapestBuy.AI Works")
     st.write("""
     - Instantly searches across **top grocery stores** to find the **lowest prices and best deals**.  
     - Summarizes **customer reviews** to highlight pros, cons, and overall satisfaction.  
@@ -582,7 +582,7 @@ with tabs[1]:
     # Future Growth
     st.subheader("📈 Future Expansion & Innovations")
     st.write("""
-    BestBuy.AI will expand beyond groceries to cover multiple categories:
+    CheapestBuy.AI will expand beyond groceries to cover multiple categories:
 
     - 💄 Beauty & Personal Care  
     - 💻 Electronics  
