@@ -64,7 +64,7 @@ It searches, compares, and recommends the most affordable groceries in Pakistan,
 <table>
   <tr>
     <!-- Left side -->
-    <td>
+    <td style="vertical-align: top; padding-right: 20px;">
 
 <h2>Tech Stack</h2>
 
@@ -80,15 +80,18 @@ It searches, compares, and recommends the most affordable groceries in Pakistan,
     </td>
 
     <!-- Right side -->
-    <td>
-      <a href="https://your-app-name.onrender.com" target="_blank">
-        <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge" alt="Live Demo on Render">
-      </a>
-      <br><br>
-      <img src="UI.png" alt="App UI Preview" width="300" style="border-radius:12px;">
+    <td style="vertical-align: top; text-align: center;">
+
+<a href="https://your-app-name.onrender.com" target="_blank">
+  <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge" alt="Live Demo on Render">
+</a>
+<br><br>
+<img src="UI.png" alt="App UI Preview" width="300">
+
     </td>
   </tr>
 </table>
+
 
 ---
 
