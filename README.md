@@ -72,7 +72,28 @@ To register our agent with Coral, we used an `application.yaml` configuration fi
   <img src="application_yaml_to_register_agent_in_coral.png" alt="application.yaml for Coral Registration" width="500"/>
 
 ----
+## 🪸 Coral Protocol Integration
 
+Our agent is now registered on [Coral Protocol](https://coralprotocol.com/)!  
+Coral enables secure agent registry and agent interactions across decentralized environments.
+
+<table>
+<tr>
+<td align="center" width="50%">
+
+<b>Agent registry proof</b><br>
+<img src="proof_or_agent_registry_in_coral.png" alt="Agent Registry in Coral" width="400"/>
+
+</td>
+<td align="center" width="50%">
+
+<b>application.yaml for Coral Registration</b><br>
+<img src="application_yaml_to_register_agent_in_coral.png" alt="application.yaml for Coral Registration" width="400"/>
+
+</td>
+</tr>
+</table>
+-----
 ## Quick Start
 
 ### 1. Clone or Download
