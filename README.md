@@ -61,6 +61,31 @@ It searches, compares, and recommends the most affordable groceries in Pakistan,
 
 
 ---
+<div style="display: flex; align-items: flex-start; justify-content: center; gap: 40px;">
+
+  <!-- Left: Tech Stack -->
+  <div style="flex: 1;">
+    <h2>Tech Stack</h2>
+    <table>
+      <tr><td><b>Python</b></td><td>3.10+</td></tr>
+      <tr><td><b>Streamlit</b></td><td>UI, chat interface</td></tr>
+      <tr><td><b>CrewAI</b></td><td>Multi-agent workflow</td></tr>
+      <tr><td><b>AIML API</b></td><td>GPT-4o + Whisper for LLM/STT</td></tr>
+      <tr><td><b>Serper.dev</b></td><td>Web search (Google results)</td></tr>
+      <tr><td><b>Custom Tools</b></td><td>Grocery website scrapers</td></tr>
+    </table>
+  </div>
+
+  <!-- Right: Image -->
+  <div style="flex: 1; text-align: center;">
+    <a href="https://your-app-name.onrender.com" target="_blank">
+      <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge" alt="Live Demo on Render">
+    </a>
+    <br><br>
+    <img src="UI.png" alt="App UI Preview" style="max-width: 100%; border-radius: 12px;">
+  </div>
+
+</div>
 
 ---
 
