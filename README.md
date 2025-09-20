@@ -35,9 +35,6 @@ It finds, compares, and recommends the most affordable grocery deals in Pakistan
 - 💳 **Solana Pay Checkout (Demo)** with escrow-style fee math
 
 ---
-
----
----
 <table>
 <tr>
 <td width="50%" valign="top">
@@ -56,7 +53,7 @@ It finds, compares, and recommends the most affordable grocery deals in Pakistan
 </td>
 <td width="50%" align="center">
 
-<img src="UI.png" alt="App UI Preview" width="500">
+<img src="UI_Tab1.png" alt="App UI Preview" width="800">
 
 </td>
 </tr>
