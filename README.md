@@ -54,7 +54,7 @@ It searches, compares, and recommends the most affordable groceries in Pakistan,
       <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge" alt="Live Demo on Render">
     </a>
     <br>
-    <img src="UI.png" alt="App UI Preview" style="margin-top:15px; border-radius:12px; max-width:100%; height:auto;">
+    <img src="UI.png" alt="App UI Preview" style="margin-top:15px; border-radius:12px; max-width:50%; height:auto;">
   </div>
 
 </div>
@@ -62,36 +62,34 @@ It searches, compares, and recommends the most affordable groceries in Pakistan,
 
 ---
 <table>
-  <tr>
-    <!-- Left side -->
-    <td style="vertical-align: top; padding-right: 20px;">
+<tr>
+<td width="50%" valign="top">
 
 <h2>Tech Stack</h2>
 
-<ul>
-  <li><b>Python</b> — 3.10+</li>
-  <li><b>Streamlit</b> — UI, chat interface</li>
-  <li><b>CrewAI</b> — Multi-agent workflow</li>
-  <li><b>AIML API</b> — GPT-4o + Whisper for LLM/STT</li>
-  <li><b>Serper.dev</b> — Web search (Google results)</li>
-  <li><b>Custom Tools</b> — Grocery website scrapers</li>
-</ul>
+| Component    | Details                      |
+|--------------|------------------------------|
+| Python       | 3.10+                        |
+| Streamlit    | UI, chat interface           |
+| CrewAI       | Multi-agent workflow         |
+| AIML API     | GPT-4o + Whisper for LLM/STT |
+| Serper.dev   | Web search (Google results)  |
+| Custom Tools | Grocery website scrapers     |
 
-    </td>
-
-    <!-- Right side -->
-    <td style="vertical-align: top; text-align: center;">
+</td>
+<td width="50%" align="center">
 
 <a href="https://your-app-name.onrender.com" target="_blank">
-  <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge" alt="Live Demo on Render">
+  <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge">
 </a>
+
 <br><br>
+
 <img src="UI.png" alt="App UI Preview" width="300">
 
-    </td>
-  </tr>
+</td>
+</tr>
 </table>
-
 
 ---
 
