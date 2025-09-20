@@ -79,17 +79,12 @@ It searches, compares, and recommends the most affordable groceries in Pakistan,
 </td>
 <td width="50%" align="center">
 
-<a href="https://your-app-name.onrender.com" target="_blank">
-  <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge">
-</a>
-
-<br><br>
-
 <img src="UI.png" alt="App UI Preview" width="300">
 
 </td>
 </tr>
 </table>
+
 
 ---
 
