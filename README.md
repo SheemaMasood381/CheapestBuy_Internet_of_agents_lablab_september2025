@@ -36,26 +36,6 @@ It finds, compares, and recommends the most affordable grocery deals in Pakistan
 
 ---
 
-## 📈 Roadmap (CheapestBuy → BestBuy.AI)
-
-Beyond groceries, BestBuy.AI will expand into multiple categories:
-
-- 💄 Beauty & Personal Care  
-- 💻 Electronics  
-- 🍲 Food & Beverages  
-- 👗 Fashion & Apparel  
-- 🪑 Furniture & Home  
-- 🧹 Household Essentials  
-- 🧸 Toys & Hobbies  
-- 🔨 DIY & Hardware  
-- 👶 Baby Products  
-- 🚗 Auto & Parts  
-- 🏋️ Sports & Fitness  
-- 🏨 Hotel Bookings  
-- ✈️ Flights  
-- 🎯 Personalized Shopping Widgets for 3rd-party sites  
-
----
 ---
 ---
 <table>
@@ -106,6 +86,36 @@ Coral enables secure agent registry and agent interactions across decentralized 
 </table>
 
 -----
+
+## 🤝 Rent This Agent
+
+**CheapestBuy.AI** agent is **MCP-enabled** and securely registered on [Coral Protocol](https://coralprotocol.com/).  
+This allows **third parties** and **end-users** to easily rent or integrate the agent into their own platforms.
+
+### Why Rent This Agent?
+- 🌍 Embed as a **widget** on your website or e-commerce store  
+- 🛒 Offer your customers **instant cheapest grocery finder** inside your app  
+- 🔐 Secured through **Coral MCP Registry** (verifiable agent identity)  
+- ⚡ Pay-as-you-go or subscription-based renting model  
+- 🧩 Extendable — can be configured for **custom categories** (e.g., hotels, flights, fashion, electronics)  
+
+### Example Use-Cases
+- 🛍️ E-commerce stores embedding grocery comparison in product pages  
+- 🏪 Supermarkets or food chains offering instant price-check tool  
+- ✈️ Travel portals extending with **hotel & flight deal search**  
+- 🧾 Utility apps integrating CheapestBuy.AI as a **side widget**  
+
+---
+
+### 🔗 Embed on Your Website
+
+Add this snippet in your webpage to instantly enable CheapestBuy.AI widget:
+
+```html
+<!-- Embed CheapestBuy.AI Agent -->
+<iframe src="https://bestbuy.ai/widget" width="400" height="600"></iframe>
+
+-------
 ## 💳 Solana Pay Integration (Demo)
 
 This project includes a **demo integration** of Solana Pay using **Devnet USDC**.  
@@ -211,6 +221,27 @@ streamlit run app.py
 - Format: `.wav` (max 5MB)
 - AIML API Whisper-Large (GPT-4o)
 - Clear warnings are provided in case of network timeout or error
+
+---
+
+## 📈 Roadmap (CheapestBuy → BestBuy.AI)
+
+Beyond groceries, BestBuy.AI will expand into multiple categories:
+
+- 💄 Beauty & Personal Care  
+- 💻 Electronics  
+- 🍲 Food & Beverages  
+- 👗 Fashion & Apparel  
+- 🪑 Furniture & Home  
+- 🧹 Household Essentials  
+- 🧸 Toys & Hobbies  
+- 🔨 DIY & Hardware  
+- 👶 Baby Products  
+- 🚗 Auto & Parts  
+- 🏋️ Sports & Fitness  
+- 🏨 Hotel Bookings  
+- ✈️ Flights  
+- 🎯 Personalized Shopping Widgets for 3rd-party sites  
 
 ---
 
