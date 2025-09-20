@@ -76,7 +76,9 @@ Coral enables secure agent registry and agent interactions across decentralized 
 </td>
 </tr>
 </table>
+
 -----
+
 ## Quick Start
 
 ### 1. Clone or Download
