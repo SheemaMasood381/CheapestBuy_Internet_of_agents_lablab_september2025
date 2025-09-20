@@ -9,6 +9,7 @@
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
 [![AIML API](https://img.shields.io/badge/AIML%20API-GPT--4o-important.svg)](https://aimlapi.com/)
 [![Deployment: Windows](https://img.shields.io/badge/Windows-supported-blue.svg)](https://docs.microsoft.com/en-us/windows/)
+[![Solana Pay](https://img.shields.io/badge/Solana%20Pay-Devnet%20Demo-9945FF?logo=solana&logoColor=white)](https://solanapay.com/)
 
 ---
 
@@ -28,6 +29,8 @@ It searches, compares, and recommends the most affordable groceries in Pakistan,
 - 💬 User review and sentiment analysis (Daraz, Amazon, AliExpress)
 - 🥇 Top 3 detailed recommendations (with images, links, pros, cons, delivery info)
 - 🏷️ Simple, beginner-friendly Streamlit UI with filters & history
+- 💳 **Solana Pay checkout** (Devnet USDC, QR code payments with escrow math)
+
 ---
 ---
 <table>
@@ -78,6 +81,23 @@ Coral enables secure agent registry and agent interactions across decentralized 
 </table>
 
 -----
+## 💳 Solana Pay Integration (Demo)
+
+This project includes a **demo integration** of Solana Pay using **Devnet USDC**.  
+It is meant for hackathon/demo purposes only — not for production payments.
+
+- Generates **QR codes** for Phantom wallet payments (Devnet USDC).  
+- Displays escrow-style fee math (platform fee + vendor share).  
+- Two modes:
+  - **Demo mode**: always confirms payment (no blockchain check).  
+  - **Real mode**: verifies on-chain transaction by reference using Solana Devnet RPC.  
+- Works only with **Devnet USDC** (`USDC Mint: 4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU`).  
+
+### Example flow:
+1. User selects **Buy with Solana Pay**.  
+2. Phantom wallet opens with a **demo Devnet USDC payment request**.  
+3. After sending, user clicks **Verify Payment**.  
+4. App confirms amount + fee split (escrow-style).  
 
 ## Quick Start
 
@@ -110,6 +130,15 @@ Create a `.env` file in the project root folder:
 ```bash
 AIML_API_KEY=your_aiml_api_key
 SERPER_API_KEY=your_serperdev_api_key
+# Solana Pay 
+MERCHANT_WALLET=your_devnet_phantom_wallet
+PRICE_PER_CREDIT_USDC=0.5
+SOLANA_CLUSTER=https://api.devnet.solana.com
+USDC_MINT=4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU
+
+# Demo toggle (1 = always confirm, 0 = real Devnet verify)
+DEMO_VERIFY_ALWAYS_OK=1
+
 ```
 
 ### 5. Run the App
@@ -145,6 +174,9 @@ streamlit run app.py
 
 5. **Recommendation**  
    Displays a concise summary for each option and highlights the best deal.
+   
+6. **Checkout (Demo)**  
+   Generates a Solana Pay QR → user pays in Phantom (Devnet USDC) → demo/verify flow confirms.
 
 ---
 
