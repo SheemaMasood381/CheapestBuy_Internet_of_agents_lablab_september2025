@@ -1,140 +1,149 @@
+# app.py
 import os
-from crewai import Agent, Crew, Process, Task, LLM
-from dotenv import load_dotenv
-from crewai_tools import SerperDevTool, ScrapeWebsiteTool, WebsiteSearchTool
-from crewai.knowledge.source.string_knowledge_source import StringKnowledgeSource
+import re
+import json
 import requests
 import streamlit as st
-import json
+from dotenv import load_dotenv
 
-# Load environment variables
+# --- CrewAI / Tools ---
+from crewai import Agent, Crew, Process, Task, LLM
+from crewai_tools import SerperDevTool, ScrapeWebsiteTool, WebsiteSearchTool
+from crewai.knowledge.source.string_knowledge_source import StringKnowledgeSource
+
+# --- Solana Pay helpers (same interface as your demo) ---
+# Expecting: create_payment(amount_usdc) -> { qr_png_bytes, pay_url, reference }
+#            verify_payment_by_memo(reference) -> {"ok": bool, ...}
+from solana_pay import create_payment, verify_payment_by_memo
+
+# -------------------- ENV --------------------
 load_dotenv(".env")
 
-AIML_API_KEY = os.getenv("AIML_API_KEY")
-SERPER_API_KEY = os.getenv("SERPER_API_KEY")
+AIML_API_KEY       = os.getenv("AIML_API_KEY")
+SERPER_API_KEY     = os.getenv("SERPER_API_KEY")
 
-# Create an AIML LLM instance
-aiml_llm =LLM(
+MERCHANT_WALLET    = os.getenv("MERCHANT_WALLET")                     # your treasury wallet (required for real QR)
+PLATFORM_FEE_USDC  = float(os.getenv("PLATFORM_FEE_USDC", "0.5"))     # flat fee added on top
+DEMO_VERIFY_ALWAYS_OK = os.getenv("DEMO_VERIFY_ALWAYS_OK", "1") == "1"
+
+# Optional vendor wallets by source (use if you wire real split payouts later)
+VENDOR_WALLET_CARREFOUR = os.getenv("VENDOR_WALLET_CARREFOUR", "")
+VENDOR_WALLET_METRO     = os.getenv("VENDOR_WALLET_METRO", "")
+VENDOR_WALLET_IMTIAZ    = os.getenv("VENDOR_WALLET_IMTIAZ", "")
+
+# -------------------- AIML LLM --------------------
+aiml_llm = LLM(
     model="gpt-4o",
     base_url="https://api.aimlapi.com/v1",
     api_key=AIML_API_KEY,
     temperature=0,
-    max_tokens=1000)
+    max_tokens=1000
+)
 
-# AIML API Details
-API_KEY = AIML_API_KEY  # Add your AIML API Key here
+# AIML API Details (STT)
+API_KEY  = AIML_API_KEY
 BASE_URL = "https://api.aimlapi.com/v1/stt"
 
+# -------------------- Utils --------------------
+def parse_price_to_float(value) -> float:
+    if value is None:
+        return None
+    if isinstance(value, (int, float)):
+        return float(value)
+    s = str(value)
+    m = re.search(r"(\d{1,3}(?:,\d{3})*|\d+)(?:\.(\d+))?", s)
+    if not m:
+        return None
+    number = m.group(0).replace(",", "")
+    try:
+        return float(number)
+    except:
+        return None
 
-import streamlit as st
-import requests
-
-# Function to send audio to AIML API for transcription with error handling
+# -------------------- Transcription --------------------
 def transcribe_audio_with_aiml(audio_data):
-    # Check if the audio file size is under 5MB
-    if audio_data.size > 5 * 1024 * 1024:  # 5 MB limit
+    # 5 MB limit
+    if audio_data.size > 5 * 1024 * 1024:
         st.warning("⚠️ Please upload a smaller audio file (less than 5MB) for better performance.")
         return None
 
-
     url = BASE_URL
     headers = {"Authorization": f"Bearer {API_KEY}"}
-    
-    # Prepare the audio file for sending
     files = {"audio": ("audio.wav", audio_data, "audio/wav")}
-    data = {"model": "#g1_whisper-large"}  # Model for transcription
+    data = {"model": "#g1_whisper-large"}
 
     try:
-        # Send audio data to AIML API with timeout set to 60 seconds
         response = requests.post(url, headers=headers, data=data, files=files, timeout=60)
-        response.raise_for_status()  # Raise an error if the status code is 400 or higher
-        
-        # Parse the transcription result from the response
+        response.raise_for_status()
         response_data = response.json()
         transcript = response_data["results"]["channels"][0]["alternatives"][0]["transcript"]
-        
         return transcript
 
     except requests.exceptions.Timeout:
-        st.warning("⏳ We are using AIML API for transcription as per hackathon guidelines. However, the service is taking too long to respond. Please try again later.")
+        st.warning("⏳ AIML API took too long to respond. Please try again.")
         return None
 
     except requests.exceptions.HTTPError as http_err:
         if response.status_code == 524:
-            st.warning("⚠️ We are using AIML API for transcription as per hackathon guidelines. Unfortunately, the service is currently unavailable (timeout). Please try again later.")
+            st.warning("⚠️ AIML API timed out (524). Please try again later.")
         else:
-            st.warning(f"⚠️ We are using AIML API for transcription as per hackathon guidelines. An unexpected error occurred: {http_err}. Please try again later.")
+            st.warning(f"⚠️ AIML API error: {http_err}")
         return None
 
     except requests.exceptions.RequestException as e:
-        st.warning(f"⚠️ We are using AIML API for transcription as per hackathon guidelines. A network issue occurred: {e}. Please check your connection and try again.")
+        st.warning(f"⚠️ Network issue: {e}")
         return None
 
-    except KeyError as e:
-        st.warning("⚠️ We are using AIML API for transcription as per hackathon guidelines. The service returned an unexpected response. Please try again later.")
+    except KeyError:
+        st.warning("⚠️ Unexpected transcription response. Please try again later.")
         return None
 
-
-
-# Define Agents
+# -------------------- Agents --------------------
 input_collector = Agent(
     role="Grocery Input Collector",
     goal=(
         "Collect and clarify user requirements specifically for grocery shopping in Pakistan. "
-        "If the user provides irrelevant prompts or asks about non-grocery topics, politely redirect "
-        "them back to groceries. Always ensure the focus is on helping users find the cheapest options "
-        "for their grocery needs."
+        "If the user provides irrelevant prompts, politely redirect them back to groceries. "
+        "Focus on helping users find the cheapest grocery options."
     ),
     backstory=(
-        "You are a smart and friendly grocery assistant who understands what users need while shopping. "
-        "You specialize in collecting grocery-related requirements (e.g., rice, flour, milk, vegetables). "
-        "If someone goes off-topic (like asking about perfumes, electronics, or random questions), you gently "
-        "guide them back to groceries and help refine their request to make sure they get the best and cheapest deals."
+        "Smart and friendly grocery assistant specialized in collecting grocery-related requirements. "
+        "Gently guide users back to groceries if they go off-topic."
     ),
     llm=aiml_llm,
     verbose=True
 )
 
-# Define  web search Tools
-# Tools for specific websites
-search_tool = SerperDevTool(api_key=SERPER_API_KEY)
-
-scrape_google = ScrapeWebsiteTool(website_url='https://google.com/')
-scrape_carrefour = ScrapeWebsiteTool(website_url='https://www.carrefour.pk/')
-scrape_metro = ScrapeWebsiteTool(website_url='https://www.metro-online.pk/')
-
+# Tools / scrapers
+search_tool     = SerperDevTool(api_key=SERPER_API_KEY)
+scrape_google   = ScrapeWebsiteTool(website_url='https://google.com/')
+scrape_carrefour= ScrapeWebsiteTool(website_url='https://www.carrefour.pk/')
+scrape_metro    = ScrapeWebsiteTool(website_url='https://www.metro-online.pk/')
 
 web_searcher = Agent(
     role="Web Search Specialist",
-    goal="Find product listings across Google, Carrefour, and Metro Cash & Carry. "
-         "Return the result as a JSON list of dictionaries, where each dictionary contains: "
-         "'name', 'price', 'rating', 'url', and 'image_url'.",
-    backstory="You are a skilled product search expert who knows how to extract valuable listings "
-              "from multiple grocery platforms and format them properly.",
+    goal=(
+        "Find product listings across Google, Carrefour, and Metro Cash & Carry. "
+        "Return JSON list of dicts with: 'name', 'price', 'rating', 'url', 'image_url', 'source', 'delivery_time'."
+    ),
+    backstory="Skilled product search expert extracting listings and formatting them properly.",
     tools=[search_tool, scrape_google, scrape_carrefour, scrape_metro],
     llm=aiml_llm,
     allow_delegation=False,
     verbose=True
 )
 
-# Define the analysis agent
 analyst = Agent(
     role="Grocery Product Comparison Expert",
     goal=(
-        "Evaluate the fetched grocery product listings and select the top 3 recommendations. "
-        "Ranking priority: (1) lowest price, (2) fastest delivery time (if available), and (3) "
-        "positive reviews/ratings. Return results as a JSON list of 3 dictionaries, each containing: "
-        "'name', 'price', 'rating', 'delivery_time', 'image_url', and 'url'."
+        "Evaluate fetched grocery listings and select the top 3 recommendations. "
+        "Rank by: (1) lowest price, (2) fastest delivery, (3) positive reviews/ratings. "
+        "Return JSON list (3 items): 'name','price','rating','delivery_time','image_url','url','source'."
     ),
-    backstory=(
-        "You are a grocery product comparison expert. You always recommend products that are "
-        "affordable, delivered quickly, and trusted by other buyers. Your goal is to ensure "
-        "users get maximum value in terms of both cost and quality."
-    ),
+    backstory="Compares products for best value: affordable, fast delivery, trusted by buyers.",
     llm=aiml_llm,
     verbose=True
 )
-
 
 review_tool = WebsiteSearchTool(
     config={
@@ -158,182 +167,140 @@ review_tool = WebsiteSearchTool(
     }
 )
 
-
 review_agent = Agent(
     role="Grocery Review Analyzer",
     goal=(
-        "Analyze user reviews for the top recommended grocery product from platforms like Daraz, "
-        "Amazon, or AliExpress. Summarize user sentiment by extracting clear pros, cons, and the "
-        "overall impression of the product’s quality, delivery experience, and value for money."
+        "Analyze user reviews for the top grocery product (Daraz/Amazon/AliExpress if needed). "
+        "Summarize pros, cons, and overall sentiment (quality, delivery, value for money)."
     ),
-    backstory=(
-        "You are a review analysis specialist focused only on grocery products. "
-        "Your job is to summarize customer feedback into useful insights that help buyers "
-        "decide whether the product is worth purchasing."
-    ),
+    backstory="Summarizes customer feedback into useful insights for buyers.",
     tools=[review_tool],
     llm=aiml_llm,
     verbose=True
 )
 
-
-# Define the final recommendation agent
 recommender = Agent(
     role="Grocery Shopping Recommendation Specialist",
     goal=(
-        "Present the top 3 grocery product recommendations with a focus on the cheapest price "
-        "and fastest delivery. Always highlight affordability, delivery speed, and rating. "
-        "Each recommendation must include: product name, price, rating, delivery_time, image URL, "
-        "and purchase link. Format the summary clearly and concisely for user-friendly display."
+        "Present top 3 grocery recommendations focusing on cheapest price and fastest delivery. "
+        "Each item includes: name, price, rating, delivery_time, image_url, and purchase link. "
+        "Format clearly for user-friendly display."
     ),
-    backstory=(
-        "You are a smart grocery shopping assistant. You take the comparison results and present "
-        "them in a way that makes it easy for users to quickly pick the cheapest option with "
-        "fast delivery and good reviews."
-    ),
+    backstory="Presents comparison results to help users quickly pick the best option.",
     llm=aiml_llm,
     verbose=True
 )
 
-# Manually format the filters
+# -------------------- Tasks --------------------
 if "filters" not in st.session_state:
-    st.session_state["filters"] = {
-        "min_rating": 3.5,
-        "brand": ""
-    }
-
+    st.session_state["filters"] = {"min_rating": 3.5, "brand": ""}
 
 brand = st.session_state["filters"]["brand"].strip() or None
 min_rating = st.session_state["filters"]["min_rating"]
 
-description = f"Process the user input for grocery shopping: '{{user_input}}'\n" \
-              f"Apply the following filters if applicable:\n" \
-              f"- Minimum Rating: {min_rating}\n"
-
+description = (
+    f"Process the user input for grocery shopping: '{{user_input}}'\n"
+    f"Apply filters if applicable:\n"
+    f"- Minimum Rating: {min_rating}\n"
+)
 if brand:
     description += f"- Preferred Brand: {brand}\n"
+description += "Generate a refined grocery search query (cheapest + fast delivery)."
 
-description += "Generate a refined grocery product search query (cheapest + fast delivery focused) based on these inputs."
-
-
-# Now, use the formatted description in your Task
 input_task = Task(
     description=description,
     expected_output=(
-        "A refined grocery product search query based on the user's input "
-        "and any applicable filters (e.g., minimum rating, preferred brand). "
-        "The query must stay focused on grocery items and highlight cheapest options."
+        "A refined grocery product search query based on the user's input and filters. "
+        "Stay focused on grocery items and highlight cheapest options."
     ),
     agent=input_collector
 )
 
-
 search_task = Task(
     description="""
         Search online for the best matching grocery products using the refined search query.
-        Look for product listings across Carrefour Pakistan, Metro Cash & Carry, and Imtiaz.
-        Use appropriate tools (e.g., web scraping, APIs if available).
-
-        Return a JSON list of the **top 3 grocery products** with the following fields:
-        - name (title)
-        - price
-        - rating
-        - url
-        - image_url
-        - source (e.g., Carrefour, Metro, Imtiaz)
-        - delivery_time (if available)
+        Look for listings across Carrefour Pakistan, Metro Cash & Carry, and Imtiaz.
+        Return a JSON list of the **top 3 grocery products** with fields:
+        - name, price, rating, url, image_url, source, delivery_time
     """,
     expected_output="""
-        A JSON-formatted list of 3 grocery products from Carrefour, Metro, or Imtiaz.
-        Each product must include: name, price, rating, url, image_url, source, and delivery_time.
+        A JSON-formatted list of 3 grocery products (Carrefour/Metro/Imtiaz).
+        Each item: name, price, rating, url, image_url, source, delivery_time.
     """,
     agent=web_searcher,
     context=[input_task]
 )
 
-
 analysis_task = Task(
     description=(
-        "Analyze the structured grocery product listings (JSON format) from Carrefour, Metro, and Imtiaz. "
-        "Compare features, price, rating, and delivery time for each. "
-        "Rank the top 3 groceries based on value (cheapest + fast delivery preferred). "
-        "For each of the top 3, return: name, price, rating, source, delivery_time, brief reason for ranking."
+        "Analyze structured grocery listings (JSON). Compare price, rating, and delivery time. "
+        "Rank the top 3 (cheapest + fast delivery preferred). "
+        "For each: name, price, rating, source, delivery_time, reason for ranking."
     ),
     expected_output="""
-        A ranked list (1 to 3) of the top grocery product recommendations.
-        Each entry should include: name, price, rating, source, delivery_time, and reason for ranking.
+        A ranked list (1..3) of top grocery recommendations.
+        Each entry: name, price, rating, source, delivery_time, reason.
     """,
     agent=analyst,
     context=[search_task]
 )
 
-
 review_task = Task(
     description=(
-        "Using the top grocery product and vendor (Carrefour, Metro, or Imtiaz), "
-        "summarize customer reviews for this grocery item. "
-        "Include pros, cons, and overall sentiment. "
-        "If reviews are not directly available, infer sentiment from pricing, popularity, and delivery service."
+        "For the #1 grocery product/vendor, summarize customer reviews (pros, cons, sentiment). "
+        "If direct reviews not available, infer from pricing/popularity/delivery."
     ),
-    expected_output="A summarized list of pros, cons, and user sentiment for the selected grocery item.",
+    expected_output="Pros, cons, and user sentiment for the selected grocery item.",
     agent=review_agent,
     context=[analysis_task]
 )
 
-
 recommendation_task = Task(
     description=(
-        "Provide a final grocery recommendation summary based on the top 3 ranked products and their customer reviews. "
-        "Summarize key features, pros/cons, delivery, and customer sentiment for each. "
-        "Highlight which grocery item is the best deal and why, but present all three options with image URLs."
+        "Provide final recommendation summary for the top 3 products with image URLs. "
+        "Summarize features, pros/cons, delivery, sentiment. "
+        "Highlight the best deal and why."
     ),
     expected_output="""
-        A summary of top 3 recommended groceries.
-        For each: name, price, rating, image_url, delivery_time, pros/cons, sentiment, and final verdict.
+        Summary of top 3 recommended groceries.
+        For each: name, price, rating, image_url, delivery_time, pros/cons, sentiment, final verdict.
     """,
     agent=recommender,
     context=[analysis_task, review_task]
 )
 
-# --- Knowledge Source (Grocery Only) ---
+# --- Knowledge Source (optional) ---
 product_knowledge = StringKnowledgeSource(
     content=(
-        "Information about current grocery products and trends in Pakistan, "
-        "including packaged foods, beverages, dairy, grains, oils, snacks, and household essentials. "
-        "Focus only on groceries, not electronics or other categories."
+        "Information about current grocery products and trends in Pakistan, including packaged "
+        "foods, dairy, grains, oils, snacks, and household essentials. Focus only on groceries."
     )
 )
 
-# --- Grocery Shopping Crew Setup ---
+# --- Crew Setup ---
 shopping_crew = Crew(
     agents=[input_collector, web_searcher, analyst, review_agent, recommender],
     tasks=[input_task, search_task, analysis_task, review_task, recommendation_task],
     verbose=True,
     process=Process.sequential,
-    embedder={
-        "provider": "aimlapi",
-        "config": {
-            "model": "text-embedding-3-large",
-            "api_key": AIML_API_KEY,
-        }
-    }
+    embedder={"provider": "aimlapi", "config": {"model": "text-embedding-3-large", "api_key": AIML_API_KEY}}
 )
 
-# --- Streamlit App UI ---
+# -------------------- Streamlit UI --------------------
 st.set_page_config(page_title="CheapestBuy.AI", page_icon="🥦")
 
-# Title and Logo in same row using columns
+# Title + Logo
 col1, col2 = st.columns([5, 2])
 with col1:
-    st.markdown("""
-                <h1 style='margin-bottom: 0;'>🥦 CheapestBuy.AI</h1>
-                <p style='margin-top: 0; font-size: 30px;'>Buy Groceries Smarter - Save More</p>
-                """, unsafe_allow_html=True)
+    st.markdown(
+        "<h1 style='margin-bottom: 0;'>🥦 CheapestBuy.AI</h1>"
+        "<p style='margin-top: 0; font-size: 30px;'>Buy Groceries Smarter - Save More</p>",
+        unsafe_allow_html=True
+    )
 with col2:
     st.image("tlogo.png", use_container_width=True)
 
-
-# --- Sidebar ---
+# Sidebar
 with st.sidebar:
     st.header("🛠️ Controls")
 
@@ -352,47 +319,38 @@ with st.sidebar:
         st.session_state.clear()
         st.rerun()
 
-    # Filters Section
     st.subheader("🔍 Grocery Filters (Optional)")
-
     filters = {
         "min_rating": st.slider("Minimum Rating", min_value=1.0, max_value=5.0, value=3.5),
         "brand": st.text_input("Preferred Grocery Brand", value="")
     }
-
     st.session_state["filters"] = filters
     st.write("Filters will be applied to grocery product search.")
 
-# --- Main Chat Area ---
-st.markdown("<h5>💬 Ask about any grocery item — your AI Grocery Crew will find, compare, and recommend the best deals in Pakistan!</h5>", unsafe_allow_html=True)
-
-# --- Session state setup ---
+# --- Session State ---
 if "messages" not in st.session_state:
     st.session_state.messages = []
-
 if "input_mode" not in st.session_state:
     st.session_state.input_mode = "Text"
-
 if "user_input" not in st.session_state:
     st.session_state.user_input = ""
+if "checkout" not in st.session_state:
+    st.session_state.checkout = {}  # key: idx -> {ref,total,vendor_share,source}
 
-# --- Display previous messages ---
+# Chat history display
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
 
-# Input Mode Selector
+# Input mode
 input_mode = st.radio("Choose input type:", ("Text", "Voice"))
 st.session_state.input_mode = input_mode
 
-# Handle Text Input
 if st.session_state.input_mode == "Text":
     user_input = st.chat_input("Type your grocery query here (e.g., cheapest milk, rice, sugar)...")
     if user_input:
         st.session_state.user_input = user_input
-
-# Handle Voice Input
-elif st.session_state.input_mode == "Voice":
+else:
     audio_data = st.audio_input("Speak your grocery query")
     if audio_data:
         st.info("Processing audio...")
@@ -400,7 +358,7 @@ elif st.session_state.input_mode == "Voice":
         if transcribed_text:
             st.session_state.user_input = transcribed_text
 
-# --- Process after input is received ---
+# --- Run Crew and Render Results + Solana Pay ---
 if st.session_state.user_input:
     user_msg = st.session_state.user_input
     st.session_state.messages.append({"role": "user", "content": user_msg})
@@ -414,64 +372,141 @@ if st.session_state.user_input:
             reply = result.raw
 
             try:
-                # Parse structured product response
                 products = json.loads(reply)
-                if isinstance(products, list):
-                    for idx, product in enumerate(products, 1):
-                        st.markdown(f"### 🛒 Option {idx}: {product.get('name', 'No Name')}")
-                        if product.get("image_url"):
-                            st.image(product.get("image_url"), use_column_width=True)
-
-                        st.markdown(f"""
-                            💵 **Price:** {product.get('price', 'N/A')}  
-                            ⭐ **Rating:** {product.get('rating', 'N/A')}  
-                            🚚 **Delivery:** {product.get('delivery_time', 'N/A')}  
-                            🔗 [Buy Now]({product.get('url', '#')})  
-
-                            **Pros:** {", ".join(product.get("pros", [])) if product.get("pros") else "N/A"}  
-                            **Cons:** {", ".join(product.get("cons", [])) if product.get("cons") else "N/A"}  
-                            **Sentiment:** {product.get("sentiment", "N/A")}
-                            ---
-                        """)
-                    reply_summary = f"Found {len(products)} grocery options. Best one is highlighted above."
-                else:
+                if not isinstance(products, list):
                     raise ValueError("Not a list")
 
+                for idx, product in enumerate(products, 1):
+                    st.markdown(f"### 🛒 Option {idx}: {product.get('name', 'No Name')}")
+
+                    # Image
+                    if product.get("image_url"):
+                        st.image(product.get("image_url"), use_container_width=True)
+
+                    # Base fields
+                    price_raw = product.get("price", "N/A")
+                    price_val = parse_price_to_float(price_raw)
+                    source    = (product.get("source") or "").strip() or "Unknown"
+
+                    st.markdown(
+                        f"💵 **Price (vendor):** {price_raw}  \n"
+                        f"⭐ **Rating:** {product.get('rating', 'N/A')}  \n"
+                        f"🚚 **Delivery:** {product.get('delivery_time', 'N/A')}  \n"
+                        f"🔗 [Product Page]({product.get('url', '#')})  \n\n"
+                        f"**Pros:** {', '.join(product.get('pros', [])) if product.get('pros') else 'N/A'}  \n"
+                        f"**Cons:** {', '.join(product.get('cons', [])) if product.get('cons') else 'N/A'}  \n"
+                        f"**Sentiment:** {product.get('sentiment', 'N/A')}"
+                    )
+
+                    # If price not parseable, skip checkout
+                    if price_val is None:
+                        st.info("Price could not be parsed — cannot checkout this item.")
+                        st.markdown("---")
+                        continue
+
+                    # Fee math
+                    total_due    = round(price_val + PLATFORM_FEE_USDC, 4)
+                    vendor_share = round(price_val, 4)
+
+                    st.markdown(
+                        f"**Checkout total (USDC):** `{total_due}` "
+                        f"(includes platform fee `${PLATFORM_FEE_USDC:.2f}`)"
+                    )
+
+                    # (Optional) Map vendors to wallets if you later enable auto-split payouts
+                    vendor_pubkey = None
+                    src_lower = source.lower()
+                    if src_lower.startswith("carrefour") and VENDOR_WALLET_CARREFOUR:
+                        vendor_pubkey = VENDOR_WALLET_CARREFOUR
+                    elif src_lower.startswith("metro") and VENDOR_WALLET_METRO:
+                        vendor_pubkey = VENDOR_WALLET_METRO
+                    elif src_lower.startswith("imtiaz") and VENDOR_WALLET_IMTIAZ:
+                        vendor_pubkey = VENDOR_WALLET_IMTIAZ
+
+                    col_buy, col_verify = st.columns(2)
+
+                    # Generate QR
+                    with col_buy:
+                        if st.button("🟣 Buy with Solana Pay", key=f"buy_{idx}"):
+                            if not MERCHANT_WALLET:
+                                st.error("Set MERCHANT_WALLET in .env to generate a payment QR.")
+                            else:
+                                try:
+                                    # Demo behavior: single-recipient QR to merchant wallet (like your demo app)
+                                    pay = create_payment(total_due)
+                                except Exception as e:
+                                    st.error(f"Failed to create payment: {e}")
+                                else:
+                                    st.session_state.checkout[idx] = {
+                                        "ref": pay["reference"],
+                                        "total": total_due,
+                                        "vendor_share": vendor_share,
+                                        "source": source,
+                                    }
+                                    st.image(pay["qr_png_bytes"], caption=f"Scan to pay {total_due} USDC (Devnet)")
+                                    st.code(pay["pay_url"], language="text")
+                                    st.markdown(f"[Open in Phantom]({pay['pay_url']})")
+
+                    # Verify payment
+                    with col_verify:
+                        if st.button("✅ Verify Payment", key=f"verify_{idx}"):
+                            entry = st.session_state.checkout.get(idx)
+                            if not entry:
+                                st.warning("Generate the QR first for this item.")
+                            else:
+                                if DEMO_VERIFY_ALWAYS_OK:
+                                    ok = True
+                                else:
+                                    try:
+                                        res = verify_payment_by_memo(entry["ref"])
+                                        ok = bool(res.get("ok"))
+                                    except Exception as e:
+                                        ok = False
+                                        st.warning(f"Verification error: {e}")
+
+                                if ok:
+                                    st.success(
+                                        f"✅ Payment confirmed!\n\n"
+                                        f"- **Total received:** {entry['total']} USDC  \n"
+                                        f"- **Platform fee:** {PLATFORM_FEE_USDC:.2f} USDC  \n"
+                                        f"- **Vendor amount (escrow math):** {entry['vendor_share']} USDC  \n"
+                                        f"- **Vendor source:** {entry['source']}"
+                                    )
+                                    st.info(
+                                        "Demo-style escrow: funds are received by your merchant wallet. "
+                                        "In production, auto-payout vendor share post-confirmation, or switch to a split tx."
+                                    )
+                                else:
+                                    st.info("Not confirmed yet. Try again.")
+
+                    st.markdown("---")
+
+                reply_summary = f"Found {len(products)} grocery options. Best choices shown above."
+
             except Exception:
+                # Fallback to raw assistant text if not JSON
                 st.markdown(reply)
                 reply_summary = reply
 
-        # Save assistant message
         st.session_state.messages.append({"role": "assistant", "content": reply_summary})
 
     st.session_state.user_input = ""
 
 # --- Footer ---
-# --- Footer ---
 st.markdown("""
     <style>
     .custom-footer {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        text-align: center;
-        padding: 10px 0;
-        font-size: 14px;
-        color: gray;
-        background-color: white;
-        z-index: 100;
+        position: fixed; bottom: 0; left: 0; width: 100%;
+        text-align: center; padding: 10px 0; font-size: 14px;
+        color: gray; background-color: white; z-index: 100;
     }
     .custom-footer hr {
-        border: none;
-        border-top: 1px solid #ddd;
-        margin: 0;
+        border: none; border-top: 1px solid #ddd; margin: 0;
     }
     </style>
-
     <div class="custom-footer">
         <hr>
         Powered by Streamlit | Developed by The Team Alpha <br>
         <b>🤖 Agent Registered with Coral Protocol</b>
     </div>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
