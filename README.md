@@ -168,8 +168,8 @@ This ensures the payment memo is actually confirmed on-chain before activating t
 <p align="center">
   <img src="Live_solana_blockchain_verification.png" alt="Live Solana Blockchain Verification" width="600"/>
 </p>
---------
 
+--------
 
 ## Quick Start
 
@@ -210,6 +210,8 @@ USDC_MINT=4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU
 
 # Demo toggle (1 = always confirm, 0 = real Devnet verify)
 DEMO_VERIFY_ALWAYS_OK=1
+#helius api key
+HELIUS_API_KEY=your_helius_api_key
 
 ```
 
@@ -260,9 +262,9 @@ streamlit run app.py
 
 ---
 
-## 📈 Roadmap (CheapestBuy → BestBuy.AI)
+## 📈 Future Enhancements
 
-Beyond groceries, BestBuy.AI will expand into multiple categories:
+Beyond groceries, CheapestBuy.AI will expand into multiple categories:
 
 - 💄 Beauty & Personal Care  
 - 💻 Electronics  
@@ -285,10 +287,10 @@ Beyond groceries, BestBuy.AI will expand into multiple categories:
 
 This project is the result of the hard work and collaboration of the following contributors:
 
-- [SheemaMasood381](https://github.com/SheemaMasood381)
 - [Tayyab666-star](https://github.com/Tayyab666-star)
 - [EemanAsghar](https://github.com/EemanAsghar)
 - [Muhammad Ali](https://github.com/alimalik07)
+- [SheemaMasood381](https://github.com/SheemaMasood381)
   
 ---
 
