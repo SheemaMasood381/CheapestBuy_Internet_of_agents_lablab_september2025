@@ -2,7 +2,7 @@
   <img src="logo.png" alt="CheapestBuy.AI Logo" width="240"/>
 </p>
 
-# 🛒 CheapestBuy.AI → BestBuy.AI (Roadmap)
+# 🛒 CheapestBuy.AI (Registered On Coral Protocol (MCP)
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-%E2%9C%94%EF%B8%8F-brightgreen.svg)](https://streamlit.io/)
@@ -114,7 +114,7 @@ Add this snippet in your webpage to instantly enable CheapestBuy.AI widget:
 ```html
 <!-- Embed CheapestBuy.AI Agent -->
 <iframe src="https://bestbuy.ai/widget" width="400" height="600"></iframe>
-'''
+```
 
 -------
 
