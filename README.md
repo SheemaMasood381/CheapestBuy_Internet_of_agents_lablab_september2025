@@ -30,13 +30,11 @@ It searches, compares, and recommends the most affordable groceries in Pakistan,
 - 🏷️ Simple, beginner-friendly Streamlit UI with filters & history
 ---
 
-## Tech Stack
-
 <div style="display: flex; align-items: center; justify-content: center; gap: 30px;">
 
   <!-- Left side: Tech Stack table -->
   <div style="flex: 1;">
-    
+
   ## Tech Stack
 
   | Component      | Details                        |
@@ -56,10 +54,11 @@ It searches, compares, and recommends the most affordable groceries in Pakistan,
       <img src="https://img.shields.io/badge/Live%20Demo-Render-blue?style=for-the-badge" alt="Live Demo on Render">
     </a>
     <br>
-    <img src="https://placehold.co/250x250" alt="App Preview" style="margin-top:15px; border-radius:12px;">
+    <img src="UI.png" alt="App UI Preview" style="margin-top:15px; border-radius:12px; max-width:100%; height:auto;">
   </div>
 
 </div>
+
 
 ---
 
@@ -77,7 +76,7 @@ Coral enables secure agent registry and agent interactions across decentralized 
 
 To register our agent with Coral, we used an `application.yaml` configuration file.  
 - **Configuration screenshot:**  
-  <img src="application_yaml_to_regiter_agnet_in_coral.png" alt="application.yaml for Coral Registration" width="500"/>
+  <img src="application_yaml_to_register_agent_in_coral.png" alt="application.yaml for Coral Registration" width="500"/>
 
 ----
 
