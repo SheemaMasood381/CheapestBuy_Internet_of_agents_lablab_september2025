@@ -127,7 +127,6 @@ Add this snippet in your webpage to instantly enable CheapestBuy.AI widget:
 ```
 
 -------
-
 ## 💳 Solana Pay Integration (Demo)
 
 This project includes a **demo integration** of Solana Pay using **Devnet USDC**.  
@@ -140,6 +139,9 @@ It is meant for hackathon/demo purposes only — not for production payments.
   - **Real mode**: verifies on-chain transaction by reference using Solana Devnet RPC.  
 - Works only with **Devnet USDC** (`USDC Mint: 4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU`).  
 
+### ⚠️ Security Note
+> **Warning:** This demo is for hackathon/testing purposes only. Payments are on Solana Devnet and should NOT be used for real transactions. Never send real funds or confidential data. Always follow best security practices when integrating payment flows.
+
 ### Example flow:
 1. User selects **Buy with Solana Pay**.  
 2. Phantom wallet opens with a **demo Devnet USDC payment request**.  
@@ -147,7 +149,7 @@ It is meant for hackathon/demo purposes only — not for production payments.
 4. App confirms amount + fee split (escrow-style).  
 <img width="634" height="458" alt="image" src="https://github.com/user-attachments/assets/fb60660f-5584-4324-9100-3f0e45aef528" />
 
-------------
+---
 
 ### 🧪 Demo Payment Flow
 
@@ -168,6 +170,8 @@ This ensures the payment memo is actually confirmed on-chain before activating t
 <p align="center">
   <img src="Live_solana_blockchain_verification.png" alt="Live Solana Blockchain Verification" width="600"/>
 </p>
+
+---
 
 --------
 ## ⚡ Quick Start
