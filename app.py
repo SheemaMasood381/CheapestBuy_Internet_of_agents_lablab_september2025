@@ -28,13 +28,13 @@ DEMO_VERIFY_ALWAYS_OK = os.getenv("DEMO_VERIFY_ALWAYS_OK", "1") == "1"
 
 # -------------------- AIML LLM --------------------
 aiml_llm = LLM(
-    model="openai/Qwen/Qwen2.5-Coder-32B-Instruct",
+    model="gpt-4o",
     base_url="https://api.aimlapi.com/v1",
     api_key=AIML_API_KEY,
     temperature=0.7,
     top_p=0.7,
     frequency_penalty=1,
-    max_tokens=1536,
+    max_tokens=5000,
     top_k=50,
 )
 
