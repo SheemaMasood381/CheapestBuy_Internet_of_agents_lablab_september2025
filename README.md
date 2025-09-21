@@ -10,6 +10,8 @@
 [![AIML API](https://img.shields.io/badge/AIML%20API-GPT--4o-important.svg)](https://aimlapi.com/)
 [![Deployment: Windows](https://img.shields.io/badge/Windows-supported-blue.svg)](https://docs.microsoft.com/en-us/windows/)
 [![Solana Pay](https://img.shields.io/badge/Solana%20Pay-Devnet%20Demo-9945FF?logo=solana&logoColor=white)](https://solanapay.com/)
+[![Deploy on Render](https://img.shields.io/badge/Render-Deployed-46E3B7?logo=render&logoColor=white)](https://render.com/)
+
 
 ---
 
@@ -19,6 +21,13 @@
 It finds, compares, and recommends the most affordable grocery deals in Pakistan, supporting both **text** and **voice** input.  
 
 👉 The project is evolving into **BestBuy.AI**, a **multi-category AI shopping agent** that covers groceries, fashion, electronics, travel, and more.
+
+<p align="center">
+  <a href="https://cheapestbuy-internet-of-agents-lablab.onrender.com/" target="_blank">
+    <img src="https://img.shields.io/badge/Live%20Demo-Go%20Now-green?style=for-the-badge" alt="Live Demo"/>
+  </a>
+</p>
+
 
 ---
 
@@ -212,6 +221,7 @@ Create a `.env` file in the project root folder:
 ```bash
 AIML_API_KEY=your_aiml_api_key
 SERPER_API_KEY=your_serperdev_api_key
+
 # Solana Pay 
 MERCHANT_WALLET=your_devnet_phantom_wallet
 PRICE_PER_CREDIT_USDC=0.5
