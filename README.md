@@ -119,9 +119,9 @@ This allows **third parties** and **end-users** to easily rent or integrate the 
 
 ---
 
-### 🔗 Embed on Your Website
+### 🔗 Embed on Your Website For Third Party Websites
 
-Add this snippet in your webpage to instantly enable CheapestBuy.AI widget:
+Third-party websites can rent CheapestBuy.AI Agent and embed it as a widget to ease their customers’ shopping experience.
 
 ```html
 <!-- Embed CheapestBuy.AI Agent -->
