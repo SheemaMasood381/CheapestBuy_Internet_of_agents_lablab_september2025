@@ -45,10 +45,6 @@ It helps users instantly find the **best deals** across multiple brands and cate
 <tr>
 <td width="50%" valign="top">
 
-<h2>Tech Stack</h2>
-
-## 🛠️ Tech Stack  
-
 ## 🛠️ Tech Stack  
 
 | Component        | Details                                  |
