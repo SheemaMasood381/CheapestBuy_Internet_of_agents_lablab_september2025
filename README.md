@@ -45,10 +45,6 @@ It helps users instantly find the **best deals** across multiple brands and cate
 <tr>
 <td width="50%" valign="top">
 
-<h2>Tech Stack</h2>
-
-## 🛠️ Tech Stack  
-
 ## 🛠️ Tech Stack  
 
 | Component        | Details                                  |
@@ -67,10 +63,7 @@ It helps users instantly find the **best deals** across multiple brands and cate
 | Solders          | Solana transaction helpers (v0.21.0+)    |
 | QRCode           | Payment QR generation                    |
 | Requests         | API calls                                |
-| Construct        | Binary parsing (v2.10.68)                |
 | Chroma / HNSWlib | Vector DB for embeddings & retrieval     |
-| Python-dotenv    | Environment variable management          |
-
 
 </td>
 <td width="50%" align="center">
@@ -126,14 +119,15 @@ This allows **third parties** and **end-users** to easily rent or integrate the 
 
 ---
 
-### 🔗 Embed on Your Website
+### 🔗 Embed on Your Website For Third Party Websites
 
-Add this snippet in your webpage to instantly enable CheapestBuy.AI widget:
+Third-party websites can rent CheapestBuy.AI Agent and embed it as a widget to ease their customers’ shopping experience.
 
 ```html
 <!-- Embed CheapestBuy.AI Agent -->
 <iframe src="https://cheapestbuy.ai/widget" width="400" height="600"></iframe>
 ```
+⚠️ Note: Embedding option is available only for verified/rented agents via Coral MCP.
 
 -------
 ## 💳 Solana Pay Integration (Demo)
