@@ -127,6 +127,7 @@ Add this snippet in your webpage to instantly enable CheapestBuy.AI widget:
 <!-- Embed CheapestBuy.AI Agent -->
 <iframe src="https://cheapestbuy.ai/widget" width="400" height="600"></iframe>
 ```
+⚠️ Note: Embedding option is available only for verified/rented agents via Coral MCP.
 
 -------
 ## 💳 Solana Pay Integration (Demo)
