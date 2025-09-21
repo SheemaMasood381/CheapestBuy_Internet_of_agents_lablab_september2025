@@ -2,7 +2,8 @@
   <img src="logo.png" alt="CheapestBuy.AI Logo" width="240"/>
 </p>
 
-# 🛒 CheapestBuy.AI (Registered On Coral Protocol (MCP)
+# 🛒 CheapestBuy.AI  
+*(Registered on Coral Protocol - MCP)*  
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-%E2%9C%94%EF%B8%8F-brightgreen.svg)](https://streamlit.io/)
@@ -12,21 +13,17 @@
 [![Solana Pay](https://img.shields.io/badge/Solana%20Pay-Devnet%20Demo-9945FF?logo=solana&logoColor=white)](https://solanapay.com/)
 [![Deploy on Render](https://img.shields.io/badge/Render-Deployed-46E3B7?logo=render&logoColor=white)](https://render.com/)
 
-
 ---
 
-## 🚀 Project Overview
+## 🌍 Project Overview  
 
-**CheapestBuy.AI** is an intelligent **AI-powered grocery shopping assistant** built with **Streamlit + CrewAI**.  
-It finds, compares, and recommends the most affordable grocery deals in Pakistan, supporting both **text** and **voice** input.  
+CheapestBuy.AI is an **AI-powered shopping agent** registered on **Coral Protocol (MCP)**.  
+It helps users instantly find the **best deals** across multiple brands and categories (groceries, fashion, flights, hotels, etc.).  
 
-👉 The project is evolving into **BestBuy.AI**, a **multi-category AI shopping agent** that covers groceries, fashion, electronics, travel, and more.
+### 🚀 Live Demo  
+👉 [Try CheapestBuy.AI on Render](https://cheapestbuy-internet-of-agents-lablab.onrender.com/)  
 
-<p align="center">
-  <a href="https://cheapestbuy-internet-of-agents-lablab.onrender.com/" target="_blank">
-    <img src="https://img.shields.io/badge/Live%20Demo-Go%20Now-green?style=for-the-badge" alt="Live Demo"/>
-  </a>
-</p>
+---
 
 
 ---
