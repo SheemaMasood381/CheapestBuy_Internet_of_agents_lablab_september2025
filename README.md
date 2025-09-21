@@ -170,22 +170,26 @@ This ensures the payment memo is actually confirmed on-chain before activating t
 </p>
 
 --------
-
-## Quick Start
+## ⚡ Quick Start
 
 ### 1. Clone or Download
 
+If you are cloning the official hackathon repo:
+
 ```bash
-git clone https://github.com/teamalpha/cheapestbuy-ai.git
-cd cheapestbuy-ai
+git clone https://github.com/SheemaMasood381/CheapestBuy_Internet_of_agents_lablab_september2025.git
+cd CheapestBuy_Internet_of_agents_lablab_september2025
 ```
+_If you are forking, please clarify with your own repo name._
 
 ### 2. Set Up Python Environment
 
 ```bash
 python -m venv .venv
+
 # Mac/Linux
 source .venv/bin/activate
+
 # Windows
 .venv\Scripts\activate
 ```
@@ -223,7 +227,7 @@ streamlit run app.py
 
 ---
 
-## Usage
+## 📝 Usage
 
 - Select text or voice input
 - Enter your grocery query ("cheapest rice", "best milk", etc.)
@@ -232,7 +236,7 @@ streamlit run app.py
 
 ---
 
-## Workflow
+## 🧩 Workflow
 
 1. **Input**  
    The grocery-related query is confirmed and refined.
@@ -254,10 +258,12 @@ streamlit run app.py
 
 ---
 
-## Voice Search Info
+## 🔉 Voice Search Info
 
 - Format: `.wav` (max 5MB)
 - AIML API Whisper-Large (GPT-4o)
+- **Supported Languages:** English, Urdu, (expandable via Whisper’s multilingual model)
+- **Privacy:** Voice files are processed in-memory and not stored on disk/server. User privacy is respected.
 - Clear warnings are provided in case of network timeout or error
 
 ---
@@ -283,7 +289,7 @@ Beyond groceries, CheapestBuy.AI will expand into multiple categories:
 
 ---
 
-## Team & Contributors
+## 👥 Team & Contributors
 
 This project is the result of the hard work and collaboration of the following contributors:
 
@@ -294,16 +300,18 @@ This project is the result of the hard work and collaboration of the following c
   
 ---
 
-## Contributing
+## 🤲 Contributing
 
 - Fork the repository and submit a pull request
 - Report bugs or issues (via GitHub Issues)
+- For queries and collaboration, contact: **sheema.masood381@gmail.com**
 
 ---
 
-## License
+## 📜 License
 
-MIT
+This project is licensed under the MIT License.  
+See the [LICENSE](./LICENSE) file for details.
 
 ---
 
