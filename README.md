@@ -150,30 +150,32 @@ It is meant for hackathon/demo purposes only — not for production payments.
 <img width="634" height="458" alt="image" src="https://github.com/user-attachments/assets/fb60660f-5584-4324-9100-3f0e45aef528" />
 
 ---
-
-### 🧪 Demo Payment Flow
-
-When the user selects **Rent This Agent**, the app generates a Solana Pay QR (Devnet USDC).  
-After scanning with Phantom, the **demo mode** confirms payment instantly.  
-
-<p align="center">
-  <img src="Succesful_payment_demo.png" alt="Demo Rent Agent Flow" width="600"/>
-</p>
-
 ---
+### 🧪 Demo Payment Flow & 🔍 Live Blockchain Verification
 
-### 🔍 Live Blockchain Verification
+<table>
+<tr>
+<td align="center" width="50%">
+<b>Demo Payment Flow</b><br>
+<img src="Succesful_payment_demo.png" alt="Demo Rent Agent Flow" width="400"/><br>
 
-The app also supports **real-time verification** on Solana Devnet via Helius API.  
+When the user selects <b>Rent This Agent</b>, the app generates a Solana Pay QR (Devnet USDC).  
+After scanning with Phantom, the <b>demo mode</b> confirms payment instantly.  
+
+</td>
+<td align="center" width="50%">
+<b>Live Solana Blockchain Verification</b><br>
+<img src="Live_solana_blockchain_verification.png" alt="Live Solana Blockchain Verification" width="400"/><br>
+
+The app also supports <b>real-time verification</b> on Solana Devnet via Helius API.  
 This ensures the payment memo is actually confirmed on-chain before activating the agent.  
 
-<p align="center">
-  <img src="Live_solana_blockchain_verification.png" alt="Live Solana Blockchain Verification" width="600"/>
-</p>
-
----
+</td>
+</tr>
+</table>
 
 --------
+
 ## ⚡ Quick Start
 
 ### 1. Clone or Download
