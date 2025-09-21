@@ -567,7 +567,7 @@ with tabs[1]:
     # Why Choose BestBuy.AI
     st.subheader("🚀 Why Choose CheapestBuy.AI?")
     st.write("""
-    BestBuy.AI is your **smart online shopping assistant**, saving you time and money by instantly finding the **best deals** from multiple stores and brands.  
+    CheapestBuy.AI is your **smart online shopping assistant**, saving you time and money by instantly finding the **best deals** from multiple stores and brands.  
     Say goodbye to endless scrolling and comparing — get **personalized, efficient, and reliable shopping recommendations** in seconds.
     """)
 
