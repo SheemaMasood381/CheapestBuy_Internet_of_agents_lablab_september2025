@@ -49,6 +49,8 @@ It helps users instantly find the **best deals** across multiple brands and cate
 
 ## 🛠️ Tech Stack  
 
+## 🛠️ Tech Stack  
+
 | Component        | Details                                  |
 |------------------|------------------------------------------|
 | Python           | 3.10+                                    |
@@ -61,11 +63,14 @@ It helps users instantly find the **best deals** across multiple brands and cate
 | Serper.dev       | Web search (Google results)              |
 | SpeechRecognition| Voice input for agent queries            |
 | Solana           | Blockchain SDK (v0.35.0)                 |
+| Helius API       | Solana Pay on-chain verification         |
 | Solders          | Solana transaction helpers (v0.21.0+)    |
 | QRCode           | Payment QR generation                    |
-| Helius API       | Solana Pay on-chain verification         |
+| Requests         | API calls                                |
 | Construct        | Binary parsing (v2.10.68)                |
 | Chroma / HNSWlib | Vector DB for embeddings & retrieval     |
+| Python-dotenv    | Environment variable management          |
+
 
 </td>
 <td width="50%" align="center">
