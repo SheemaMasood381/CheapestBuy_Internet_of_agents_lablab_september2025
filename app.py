@@ -31,11 +31,8 @@ aiml_llm = LLM(
     model="gpt-4o",
     base_url="https://api.aimlapi.com/v1",
     api_key=AIML_API_KEY,
-    temperature=0.7,
-    top_p=0.7,
-    frequency_penalty=1,
-    max_tokens=5000,
-    top_k=50,
+    temperature=0,
+    max_tokens=1000
 )
 
 # AIML API Details (STT)
