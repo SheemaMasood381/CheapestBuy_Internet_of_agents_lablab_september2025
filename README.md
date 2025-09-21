@@ -2,7 +2,8 @@
   <img src="logo.png" alt="CheapestBuy.AI Logo" width="240"/>
 </p>
 
-# 🛒 CheapestBuy.AI (Registered On Coral Protocol (MCP)
+# 🛒 CheapestBuy.AI  
+*(Registered on Coral Protocol - MCP)*  
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-%E2%9C%94%EF%B8%8F-brightgreen.svg)](https://streamlit.io/)
@@ -10,15 +11,20 @@
 [![AIML API](https://img.shields.io/badge/AIML%20API-GPT--4o-important.svg)](https://aimlapi.com/)
 [![Deployment: Windows](https://img.shields.io/badge/Windows-supported-blue.svg)](https://docs.microsoft.com/en-us/windows/)
 [![Solana Pay](https://img.shields.io/badge/Solana%20Pay-Devnet%20Demo-9945FF?logo=solana&logoColor=white)](https://solanapay.com/)
+[![Deploy on Render](https://img.shields.io/badge/Render-Deployed-46E3B7?logo=render&logoColor=white)](https://render.com/)
 
 ---
 
-## 🚀 Project Overview
+## 🌍 Project Overview  
 
-**CheapestBuy.AI** is an intelligent **AI-powered grocery shopping assistant** built with **Streamlit + CrewAI**.  
-It finds, compares, and recommends the most affordable grocery deals in Pakistan, supporting both **text** and **voice** input.  
+CheapestBuy.AI is an **AI-powered shopping agent** registered on **Coral Protocol (MCP)**.  
+It helps users instantly find the **best deals** across multiple brands and categories (groceries, fashion, flights, hotels, etc.).  
 
-👉 The project is evolving into **BestBuy.AI**, a **multi-category AI shopping agent** that covers groceries, fashion, electronics, travel, and more.
+### 🚀 Live Demo  
+👉 [Try CheapestBuy.AI on Render](https://cheapestbuy-internet-of-agents-lablab.onrender.com/)  
+
+---
+
 
 ---
 
@@ -41,26 +47,29 @@ It finds, compares, and recommends the most affordable grocery deals in Pakistan
 
 <h2>Tech Stack</h2>
 
-| Component          | Details / Usage                                  |
-|--------------------|--------------------------------------------------|
-| Python             | 3.10+                                            |
-| Streamlit          | Web UI, dashboard, chat interface                |
-| CrewAI             | Multi-agent orchestration                        |
-| crewai-tools       | Pre-built tools for agents (search, scrape, etc.)|
-| LiteLLM            | Lightweight LLM API wrapper                      |
-| AIML API           | GPT-4o + Whisper for LLM/STT                     |
-| Serper.dev         | Web search (Google results)                      |
-| SpeechRecognition  | Voice input handling                             |
-| python-dotenv      | Environment variable management                  |
-| requests           | HTTP requests                                    |
-| qrcode             | Generate QR codes                                |
-| Solana (0.35.0)    | Solana blockchain integration                    |
-| solders (0.21.x)   | Solana SDK dependency (transaction signing)       |
-| Helius API         | Solana blockchain data/transaction API           |
-| construct (2.10.68)| Binary data parsing                              |
-| ChromaDB           | Vector database for embeddings                   |
-| chroma-hnswlib     | ANN index (HNSW) backend for ChromaDB            |
-| Custom Tools       | Grocery website scrapers                         |
+## 🛠️ Tech Stack  
+
+## 🛠️ Tech Stack  
+
+| Component        | Details                                  |
+|------------------|------------------------------------------|
+| Python           | 3.10+                                    |
+| Coral Protocol   | **MCP agent registry & rental platform** |
+| AIML API         | GPT-4o + Whisper for LLM/STT             |
+| Streamlit        | UI, chat interface                       |
+| CrewAI           | Multi-agent workflow                     |
+| CrewAI-Tools     | Web scraping & search utilities          |
+| LiteLLM          | LLM abstraction layer                    |
+| Serper.dev       | Web search (Google results)              |
+| SpeechRecognition| Voice input for agent queries            |
+| Solana           | Blockchain SDK (v0.35.0)                 |
+| Helius API       | Solana Pay on-chain verification         |
+| Solders          | Solana transaction helpers (v0.21.0+)    |
+| QRCode           | Payment QR generation                    |
+| Requests         | API calls                                |
+| Construct        | Binary parsing (v2.10.68)                |
+| Chroma / HNSWlib | Vector DB for embeddings & retrieval     |
+| Python-dotenv    | Environment variable management          |
 
 
 </td>
@@ -212,6 +221,7 @@ Create a `.env` file in the project root folder:
 ```bash
 AIML_API_KEY=your_aiml_api_key
 SERPER_API_KEY=your_serperdev_api_key
+
 # Solana Pay 
 MERCHANT_WALLET=your_devnet_phantom_wallet
 PRICE_PER_CREDIT_USDC=0.5
