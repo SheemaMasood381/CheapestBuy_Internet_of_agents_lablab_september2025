@@ -31,6 +31,8 @@ It helps users instantly find the **best deals** across multiple brands and cate
 ## ✨ Features
 
 - 🪸 **Registered with Coral Protocol** for secure multi-agent operations
+- 💳 **Solana Pay Checkout (Demo)** with escrow-style fee math  
+- 🧠 **Mistral AI LLMs** (7B & Mixtral 8x7B) for reasoning, recommendations, and analysis 
 - 🔎 Smart grocery search (Carrefour, Metro, Imtiaz, Daraz, etc.)
 - 📊 Product comparison (price, delivery, ratings, reviews)
 - 🤖 Multi-agent workflow: input → search → analysis → recommendation
@@ -38,7 +40,7 @@ It helps users instantly find the **best deals** across multiple brands and cate
 - 💬 Customer review + sentiment analysis
 - 🥇 Top 3 detailed product recommendations
 - 🏷️ Beginner-friendly Streamlit UI with filters/history
-- 💳 **Solana Pay Checkout (Demo)** with escrow-style fee math
+
 
 ---
 <table>
@@ -51,7 +53,7 @@ It helps users instantly find the **best deals** across multiple brands and cate
 |------------------|------------------------------------------|
 | Python           | 3.10+                                    |
 | Coral Protocol   | **MCP agent registry & rental platform** |
-| AIML API         | GPT-4o + Whisper for LLM/STT             |
+| AIML API         | Mistral Ai + Whisper for LLM/STT         |
 | Streamlit        | UI, chat interface                       |
 | CrewAI           | Multi-agent workflow                     |
 | CrewAI-Tools     | Web scraping & search utilities          |
