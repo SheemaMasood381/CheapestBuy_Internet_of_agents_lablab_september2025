@@ -63,10 +63,7 @@ It helps users instantly find the **best deals** across multiple brands and cate
 | Solders          | Solana transaction helpers (v0.21.0+)    |
 | QRCode           | Payment QR generation                    |
 | Requests         | API calls                                |
-| Construct        | Binary parsing (v2.10.68)                |
 | Chroma / HNSWlib | Vector DB for embeddings & retrieval     |
-| Python-dotenv    | Environment variable management          |
-
 
 </td>
 <td width="50%" align="center">
