@@ -295,7 +295,7 @@ def local_file_to_base64(path):
         data = f.read()
     return base64.b64encode(data).decode()
 
-png_base64 = local_file_to_base64("logo.png")  # your PNG file
+png_base64 = local_file_to_base64("logo.png")  
 
 st.markdown(
     f"""
@@ -305,7 +305,7 @@ st.markdown(
         background-size: cover !important;
     }}
     .stApp {{
-        background-color: rgba(255, 255, 255, 0.6) !important;
+        background-color: rgba(255, 255, 255, 0.9) !important;
         backdrop-filter: blur(7px);
     }}
     .block-container {{
