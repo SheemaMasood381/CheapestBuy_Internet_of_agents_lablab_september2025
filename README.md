@@ -326,5 +326,8 @@ This project is licensed under the MIT License.
 See the [LICENSE](./LICENSE) file for details.
 
 ---
+Built with ❤️ for the Internet of Agents Hackathon
+
+Empowering businesses with AI-driven sales automation through multi-agent orchestration, voice AI, and blockchain payments.
 
 **Developed by Team Alpha | Powered by Streamlit & CrewAI**
